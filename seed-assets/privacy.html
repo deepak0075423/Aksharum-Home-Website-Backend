@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Aksharum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<link rel="stylesheet" href="css/privacy.css">
+<link rel="stylesheet" href="css/liquid-glass.css">
+<script src="js/page-transitions.js" defer></script>
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem("aksharum-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (savedTheme === "dark" || savedTheme === "light") {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+    }
+  })();
+</script>
+</head>
+<body>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nw">
+    <a href="index.html" class="logo">
+      <div class="lbox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <span class="logo-accent">Aksharum</span>
+    </a>
+
+    <!-- desktop links -->
+    <ul class="nlinks">
+      <li><a href="index.html" >Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <!-- desktop CTA -->
+       <div class="nright">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+    <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="M4.93 4.93l1.41 1.41"></path>
+      <path d="M17.66 17.66l1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="M6.34 17.66l-1.41 1.41"></path>
+      <path d="M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+
+    <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+    </svg>
+  </button>
+
+  <a href="demo.html" class="n-demo">Book Demo</a>
+</div>
+
+    <!-- hamburger -->
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+</nav>
+
+  <!-- overlay -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- mobile drawer -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <a href="index.html" class="drawer-logo">
+        <div class="lbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span>Aksharum</span>
+      </a>
+
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="drawer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html" >Contact</a>
+    </div>
+
+       <div class="drawer-bottom">
+  <button class="drawer-theme-toggle" id="drawerThemeToggle" type="button" aria-label="Switch to dark mode">
+    <span class="drawer-theme-icon">
+      <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="M4.93 4.93l1.41 1.41"></path>
+        <path d="M17.66 17.66l1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="M6.34 17.66l-1.41 1.41"></path>
+        <path d="M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+
+      <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+      </svg>
+    </span>
+
+    <span class="drawer-theme-text">Dark Mode</span>
+  </button>
+
+  <a href="demo.html" class="drawer-demo">Book Demo</a>
+</div>
+  </aside>
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Privacy Policy</h1>
+    <p>How we collect, use, and protect your information across the Aksharum platform.</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="pp-wrap">
+
+  <!-- TOC -->
+  <aside class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ul class="toc-list" id="toc">
+      <li><a href="#intro" class="active">Introduction</a></li>
+      <li><a href="#data-collection">Data Collection</a></li>
+      <li><a href="#data-types">Types of Data</a></li>
+      <li><a href="#data-use">Use of Data</a></li>
+      <li><a href="#multi-tenancy">Multi-Tenancy</a></li>
+      <li><a href="#role-access">Role-Based Access</a></li>
+      <li><a href="#third-party">Third-Party Services</a></li>
+      <li><a href="#data-security">Data Security</a></li>
+      <li><a href="#user-rights">User Rights</a></li>
+      <li><a href="#children">Children's Data</a></li>
+      <li><a href="#contact-pp">Contact Us</a></li>
+    </ul>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="pp-content">
+
+    <!-- INTRO -->
+    <div class="intro-box sr" id="intro">
+      <h2>Welcome to Aksharum's Privacy Policy</h2>
+      <p>At Aksharum, we take your privacy seriously. This policy explains how we collect, use, and protect personal information when schools, administrators, teachers, students, and parents interact with our multi-tenant school ERP platform.</p>
+      <p>Each school on Aksharum operates as a completely isolated tenant — your school's data is never accessible to any other school on the platform. By using Aksharum, you agree to the practices described in this policy.</p>
+      <p>Our commitment is simple: your data is used solely to deliver and improve the Aksharum service. We do not sell, rent, or share your personal information with advertisers or unrelated third parties.</p>
+    </div>
+
+    <!-- 1 -->
+    <section class="pp-section sr" id="data-collection">
+      <h2>1. Data Collection</h2>
+      <p>We collect information necessary to operate the Aksharum platform across five user roles: Super Admin, School Admin, Teacher, Student, and Parent.</p>
+      <ul>
+        <li><strong>Information you provide directly:</strong> Names, email addresses, phone numbers, role designations, and institutional details entered during onboarding or everyday use.</li>
+        <li><strong>Automatically collected data:</strong> Session information, login timestamps, IP addresses, and browser type to secure accounts and improve the platform.</li>
+        <li><strong>Academic & institutional data:</strong> Attendance records, exam results, aptitude scores, fee payments, salary slips, leave balances, timetables, documents, and assignment submissions.</li>
+        <li><strong>Communication data:</strong> Messages and notifications sent through the Communication and Notification modules, including real-time SSE alerts and system-generated emails.</li>
+      </ul>
+      <div class="note"><strong>Note:</strong> Aksharum collects only data necessary for the modules your school has enabled. Disabled modules do not collect or process related data.</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="pp-section sr" id="data-types">
+      <h2>2. Types of Data</h2>
+      <p>The following categories of personal data may be processed depending on which modules your school has activated:</p>
+      <div class="pp-table-wrap">
+        <table class="pp-table">
+          <thead>
+            <tr><th>Data Category</th><th>Examples</th><th>Module</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Identity Data</strong></td><td>Name, profile photo, role, student/employee ID</td><td>User Management</td></tr>
+            <tr><td><strong>Contact Data</strong></td><td>Email, phone number, parent contact</td><td>All Modules</td></tr>
+            <tr><td><strong>Academic Data</strong></td><td>Marks, grades, attendance, exam scores</td><td>Results, Attendance, Exams</td></tr>
+            <tr><td><strong>Financial Data</strong></td><td>Fee payment records, salary slip details</td><td>Fees, Salary Slips</td></tr>
+            <tr><td><strong>Behavioural Data</strong></td><td>Exam violation logs, session timestamps</td><td>Aptitude Exams</td></tr>
+            <tr><td><strong>Document Data</strong></td><td>Uploaded files, assignments, circulars</td><td>Document Sharing</td></tr>
+            <tr><td><strong>Schedule Data</strong></td><td>Timetable, holiday calendar, leave records</td><td>Timetable, Holidays, Leaves</td></tr>
+            <tr><td><strong>Communication Data</strong></td><td>Notification logs, chat messages</td><td>Notifications, Communication</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="pp-section sr" id="data-use">
+      <h2>3. Use of Data</h2>
+      <p>Aksharum uses collected data exclusively to deliver, maintain, and improve our school management services. We do not use your data for advertising.</p>
+      <ul>
+        <li><strong>Platform operation:</strong> Processing attendance, results, fees, salary slips, leave approvals, and timetables as requested by authorised users.</li>
+        <li><strong>Authentication & security:</strong> Verifying identity via sessions, JWT magic login links, and OTP password resets.</li>
+        <li><strong>Notifications:</strong> Delivering real-time SSE alerts and emails for results, attendance flags, leave approvals, and system events.</li>
+        <li><strong>Reporting & exports:</strong> Generating PDF and XLSX reports for results, attendance, fees, and salary slips via PDFKit and xlsx.</li>
+        <li><strong>Anti-cheat monitoring:</strong> Recording violation events during timed aptitude exams to maintain academic integrity.</li>
+        <li><strong>Platform improvement:</strong> Anonymised, aggregated analytics to identify bugs and improve performance.</li>
+      </ul>
+      <div class="note"><strong>No advertising:</strong> Aksharum does not use student, parent, teacher, or institutional data for any advertising or marketing directed at end users.</div>
+    </section>
+
+    <!-- 4 -->
+    <section class="pp-section sr" id="multi-tenancy">
+      <h2>4. Multi-Tenancy & Data Isolation</h2>
+      <p>Aksharum is a multi-tenant platform — multiple schools share infrastructure but each school's data is completely isolated.</p>
+      <ul>
+        <li><strong>Tenant scoping:</strong> Every record is tagged with a school identifier. No query can return data outside the authenticated school's scope.</li>
+        <li><strong>Super Admin limits:</strong> Our Super Admin can manage school configurations but cannot access academic records, student data, or financial data within individual school tenants.</li>
+        <li><strong>Module isolation:</strong> Schools that have disabled specific modules do not have that data collected or stored on their behalf.</li>
+        <li><strong>No cross-tenant sharing:</strong> Student results, attendance, salary slips, and documents from one school are never visible or accessible to any other school on the platform.</li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section class="pp-section sr" id="role-access">
+      <h2>5. Role-Based Access Control</h2>
+      <p>Aksharum enforces strict RBAC across all five user roles. Each role can only access data relevant to their function.</p>
+      <ul>
+        <li><strong>Super Admin:</strong> Platform-wide school configuration and module toggling only. No access to student, teacher, or financial records.</li>
+        <li><strong>School Admin:</strong> Full access to all data within their own school tenant — students, teachers, results, fees, salary slips, documents, and reports.</li>
+        <li><strong>Teacher:</strong> Attendance marking, result entry for assigned subjects, exam creation, leave requests, and document sharing for their classes.</li>
+        <li><strong>Student:</strong> Access only to their own academic records — personal results, exam attempts, submitted assignments, and notifications addressed to them.</li>
+        <li><strong>Parent:</strong> View-only access to their linked child's attendance, results, fee status, and documents shared with their child's class.</li>
+      </ul>
+      <div class="note">Role permissions are enforced at the server level via middleware on every route. A student cannot access teacher or admin routes even by directly calling an API endpoint.</div>
+    </section>
+
+    <!-- 6 -->
+    <section class="pp-section sr" id="third-party">
+      <h2>6. Third-Party Services</h2>
+      <p>Aksharum uses a limited set of third-party services necessary to operate the platform. These providers are bound by data processing agreements.</p>
+      <ul>
+        <li><strong>Nodemailer / Email SMTP:</strong> Used to send system-generated emails including magic login links, OTP codes, result notifications, and fee receipts.</li>
+        <li><strong>Cloud storage:</strong> Uploaded documents — notes, assignments, circulars, salary files — are stored securely and only accessible by users with appropriate permissions.</li>
+        <li><strong>MongoDB Atlas:</strong> All structured data is stored in MongoDB, encrypted at rest and in transit. Atlas is ISO 27001 certified.</li>
+        <li><strong>Anonymised analytics:</strong> We may use aggregated, non-identifiable analytics to understand platform usage. No personally identifiable information is included.</li>
+      </ul>
+      <p>We do not integrate advertising networks, social media tracking, or any tools that collect student or parent data for external purposes.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="pp-section sr" id="data-security">
+      <h2>7. Data Security</h2>
+      <p>We implement multiple layers of security to protect your data across Aksharum.</p>
+      <ul>
+        <li><strong>Authentication:</strong> Session-based auth with HTTP-only cookies, JWT magic login links with expiry, and OTP-based password reset — no plain-text passwords stored.</li>
+        <li><strong>Encrypted transmission:</strong> All data between your browser and our servers is encrypted via HTTPS/TLS.</li>
+        <li><strong>Database encryption:</strong> Data at rest is encrypted. Database access is restricted via IP allowlisting and authenticated connections.</li>
+        <li><strong>File upload security:</strong> Files are validated for type and size via Multer. Documents are stored with access controls.</li>
+        <li><strong>Exam anti-cheat:</strong> Violation events are logged server-side. Exam sessions auto-submit on timeout.</li>
+        <li><strong>Approval workflows:</strong> Result publishing, leave approval, and attendance corrections require multi-level authorisation.</li>
+        <li><strong>Audit logging:</strong> Key admin actions are logged with timestamps and user identifiers for accountability.</li>
+      </ul>
+      <div class="note">In the event of a security incident affecting your school's data, Aksharum will notify the affected School Admin within 72 hours of becoming aware of the breach.</div>
+    </section>
+
+    <!-- 8 -->
+    <section class="pp-section sr" id="user-rights">
+      <h2>8. Your Rights</h2>
+      <p>Depending on your jurisdiction, you may have certain rights regarding your personal data. Aksharum is committed to facilitating these rights.</p>
+      <ul>
+        <li><strong>Right to access:</strong> Request a copy of the personal data we hold. Students can view their own records directly within the platform.</li>
+        <li><strong>Right to correction:</strong> Inaccurate records — wrong attendance or result entry — can be corrected through the platform's amendment workflows.</li>
+        <li><strong>Right to deletion:</strong> School Admins can request account and data deletion from their tenant. Platform-wide requests should be sent to our privacy team.</li>
+        <li><strong>Right to portability:</strong> School Admins can export results, attendance, and reports as PDF or XLSX files at any time via the Reports module.</li>
+        <li><strong>Right to object:</strong> If you believe your data is being processed incorrectly, contact your School Admin or our privacy team.</li>
+      </ul>
+    </section>
+
+    <!-- 9 -->
+    <section class="pp-section sr" id="children">
+      <h2>9. Children's Data</h2>
+      <p>Aksharum is designed for educational institutions that include minors. We treat student data with the highest level of care.</p>
+      <ul>
+        <li><strong>Institutional control:</strong> Student accounts are created and managed by School Admins — not directly by students or parents — ensuring institutional oversight.</li>
+        <li><strong>No marketing to children:</strong> We never use student data for advertising, profiling, or marketing of any kind.</li>
+        <li><strong>Parental access:</strong> Parents linked to a student account can view their child's attendance, results, and fee status through the read-only parent dashboard.</li>
+        <li><strong>Data minimisation:</strong> We collect only the student data necessary for the modules your school has enabled.</li>
+      </ul>
+      <div class="note">If a school inadvertently provides us with data that should not be processed, please contact <strong>privacy@school2.app</strong> immediately and we will promptly delete it.</div>
+    </section>
+
+    <!-- 10 -->
+    <section class="pp-section sr" id="contact-pp">
+      <h2>10. Contact Us</h2>
+      <p>If you have any questions, concerns, or requests regarding this Privacy Policy or how Aksharum handles your data, please reach out to us.</p>
+      <div class="contact-card">
+        <h3>Aksharum Privacy Team</h3>
+        <p>Email: <a href="mailto:privacy@school2.app">privacy@school2.app</a></p>
+        <p>General enquiries: <a href="mailto:hello@school2.app">hello@school2.app</a></p>
+        <p>We aim to respond to all privacy requests within 5 business days. Aksharum reserves the right to update this policy from time to time. Significant changes will be communicated to School Admins via email and an in-platform notification.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+ <!-- FOOTER -->
+<footer>
+  <div class="fw">
+    <div class="f-top">
+      <div class="f-brand-name"><span>Aksharum</span></div>
+      <div class="f-tagline">The modern operating system for educational institutions — built for schools of every size.</div>
+    </div>
+    <div class="fgrid">
+      <div class="fcol">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="demo.html">Book a Demo</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="career.html">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Social Media</h4>
+        <ul>
+          <li><a href="mailto:hello@school2.app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@school2.app</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>X (Twitter)</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms&conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="terms.html" style="color:rgba(255,255,255,.8);font-weight:600" class="active">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">© 2026 Aksharum. Built in India for Modern Education.</div>
+  </div>
+</footer>
+<script src="js/privacy.js"></script>
+
+</body>
+</html>

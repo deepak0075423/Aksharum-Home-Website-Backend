@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Features — School 2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="css/feature.css">
+<link rel="stylesheet" href="css/liquid-glass.css">
+<script src="js/page-transitions.js" defer></script>
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem("aksharum-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (savedTheme === "dark" || savedTheme === "light") {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav id="nav" style="background: linear-gradient(
+    180deg, 
+    var(--nav-bg-start) 0%, 
+    var(--nav-bg-middle) 50%, 
+    var(--nav-bg-end) 100%
+  );">
+  <div class="nw">
+    <a href="index.html" class="logo">
+      <div class="lbox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <span class="logo-accent">Aksharum</span>
+    </a>
+
+    <!-- desktop links -->
+    <ul class="nlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="features.html" class="active">Features</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <!-- desktop CTA -->
+       <div class="nright">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+    <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="M4.93 4.93l1.41 1.41"></path>
+      <path d="M17.66 17.66l1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="M6.34 17.66l-1.41 1.41"></path>
+      <path d="M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+
+    <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+    </svg>
+  </button>
+
+  <a href="demo.html" class="n-demo">Book Demo</a>
+</div>
+
+    <!-- hamburger (NEW) -->
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+</nav>
+
+  <!-- overlay (NEW) -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- mobile drawer (NEW) -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <a href="index.html" class="drawer-logo">
+        <div class="lbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span>Aksharum</span>
+      </a>
+
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="drawer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="features.html" class="active">Features</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+       <div class="drawer-bottom">
+  <button class="drawer-theme-toggle" id="drawerThemeToggle" type="button" aria-label="Switch to dark mode">
+    <span class="drawer-theme-icon">
+      <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="M4.93 4.93l1.41 1.41"></path>
+        <path d="M17.66 17.66l1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="M6.34 17.66l-1.41 1.41"></path>
+        <path d="M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+
+      <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+      </svg>
+    </span>
+
+    <span class="drawer-theme-text">Dark Mode</span>
+  </button>
+
+  <a href="demo.html" class="drawer-demo">Book Demo</a>
+</div>
+  </aside>
+
+
+
+<!-- HERO -->
+<section class="about-hero" id="aboutHero">
+  <img class="hero-kite" id="heroKite" src="kite-removebg-preview.png" alt=""/>
+  <div class="bg-orb bg-orb-left"></div>
+  <div class="bg-orb bg-orb-right"></div>
+  <div class="bg-orb bg-orb-mid"></div>
+  <img class="hero-book" id="heroBook" src="School_Book_Clipart_-_Free_Png__Svg__Vector_Images___Neoclipart-removebg-preview.png" alt=""/>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" id="hey">Our Features</div>
+    <h1 id="htitle">
+      <span class="word">Every </span>
+      <span class="word">school</span>
+      <span class="word">workflow</span>
+      <span class="word accent">One</span>
+      <span class="word">platform</span>
+    </h1>
+    <p class="sub" id="hsub">
+        17 deeply connected modules — built for teachers, admins, students, and parents. Replace every register, spreadsheet, and WhatsApp group with one calm, intelligent system.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C360,110 720,30 1080,80 C1260,105 1380,75 1440,60 L1440,120 L0,120 Z"/>
+  </svg>
+</section>
+
+
+
+<!-- ══ CHAOS ══ -->
+<section class="f-chaos" id="fChaos">
+  <div class="wrap">
+    <div class="sec-hd" id="fChaosHd">
+      <div class="ey">The Problem</div>
+      <h2>Schools shouldn't operate <em>in chaos.</em></h2>
+      <p>Disconnected tools and manual processes cost teachers hours every week and leave parents without visibility.</p>
+    </div>
+    <div class="f-chaos-layout">
+      <div class="f-chaos-col left">
+        <div class="f-prob"><div class="f-prob-ico ico-att"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><div class="f-prob-t">Manual Attendance</div><div class="f-prob-s">Registers filled daily, errors never caught</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><div class="f-prob-t">Lost Documents</div><div class="f-prob-s">No single source of truth for any role</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-fee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div><div class="f-prob-t">Fee Confusion</div><div class="f-prob-s">Cash registers, handwritten receipts</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-tt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="f-prob-t">Timetable Clashes</div><div class="f-prob-s">Conflicts found only on the day</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-sal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div><div><div class="f-prob-t">Salary Processing</div><div class="f-prob-s">Manual payroll, physical slip distribution</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-lib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><div><div class="f-prob-t">Library Chaos</div><div class="f-prob-s">Book records in registers, no due alerts</div></div></div>
+      </div>
+      <div class="f-chaos-center" id="fChaosCenter">
+        <div class="f-chaos-ring"></div>
+        <div class="f-chaos-ring2"></div>
+        <img class="f-chaos-img" src="WhatsApp_Image_2026-05-15_at_22.30.46-removebg-preview.png" alt="School chaos illustration"/>
+      </div>
+      <div class="f-chaos-col right">
+        <div class="f-prob"><div class="f-prob-ico ico-com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div class="f-prob-t">Communication Gaps</div><div class="f-prob-s">WhatsApp groups, late news</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-res"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div><div class="f-prob-t">Result Delays</div><div class="f-prob-s">Marks in Excel, parents waiting</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-lea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg></div><div><div class="f-prob-t">Leave Management</div><div class="f-prob-s">Paper forms, chasing approvals</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-tra"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><div class="f-prob-t">Transport Tracking</div><div class="f-prob-s">No visibility for parents</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-inv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><div><div class="f-prob-t">Inventory Problems</div><div class="f-prob-s">Stock missing at year-end</div></div></div>
+        <div class="f-prob"><div class="f-prob-ico ico-stu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><div class="f-prob-t">Scattered Systems</div><div class="f-prob-s">6 tools, 0 connections</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEW: FEATURES SECTION HEADER ══ -->
+<section class="f-features-hd" id="fFeaturesHd">
+  <div class="f-features-hd-inner">
+    <div class="ey">What's Inside</div>
+    <h2>17 modules.<br> <em>Every workflow covered.</em></h2>
+    <p>From the moment a student walks in to the moment a salary slip is generated — every operation in your school has a home. Explore every module School 2.0 ships with.</p>
+
+  </div>
+</section>
+
+<!-- ══ FEATURE SECTIONS ══ -->
+<div id="fFeatures">
+
+<!-- 1. CLASSES & TIMETABLE -->
+<section class="f-sec bg-wt" id="fS0">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Classes & Timetable</span></div>
+    <div class="f-grid">
+      <div id="fC0">
+        <div class="f-sec-hd">
+          <h2>Class Structure & <em>Conflict-Free Schedules.</em></h2>
+          <p>Manage every class, section, and subject in one place — then build timetables visually with live conflict detection. Every teacher and student sees their schedule the moment it's published.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><h4>Class & Section Management</h4><p>Define classes, sections, subjects, and teacher–subject assignments — all from one dashboard.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><div><h4>Visual Timetable Builder</h4><p>Drag-and-drop slots, automatic conflict detection — no teacher double-booked, no room clashes.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><h4>Role-Specific Views</h4><p>Each teacher sees their own classes. Each student sees their own schedule. No information overload.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV0">
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><div><div class="db-bar-title">Class X-A — Timetable</div><div class="db-bar-sub">Mon–Fri · No conflicts</div></div></div>
+            <span class="db-badge bg-g" style="padding:4px 10px">Active</span>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">32</div><div class="db-stat-l">Classes</div></div>
+            <div class="db-stat"><div class="db-stat-v">48</div><div class="db-stat-l">Teachers</div></div>
+            <div class="db-stat"><div class="db-stat-v">0</div><div class="db-stat-l">Conflicts</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">M</div><div class="db-row-txt"><div class="db-row-name">Maths · 8:00 AM</div><div class="db-row-sub">Mr. Sharma · Room 201</div></div><span class="db-badge bg-g">Confirmed</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p500)">P</div><div class="db-row-txt"><div class="db-row-name">Physics · 9:00 AM</div><div class="db-row-sub">Ms. Patel · Lab 3</div></div><span class="db-badge bg-g">Confirmed</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">E</div><div class="db-row-txt"><div class="db-row-name">English · 10:00 AM</div><div class="db-row-sub">Mr. Kumar · Room 104</div></div><span class="db-badge bg-g">Confirmed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ATTENDANCE -->
+<section class="f-sec bg-alt" id="fS1">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Attendance</span></div>
+    <div class="f-grid rev">
+      <div id="fC1">
+        <div class="f-sec-hd">
+          <h2>Smart Attendance <em>Tracking System.</em></h2>
+          <p>Simplify daily attendance with intelligent tracking, instant parent alerts, and automated reports — designed for modern classrooms.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><h4>One-Tap Attendance</h4><p>Mark attendance instantly with smart visual feedback for every student in the class.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><h4>Instant Parent Alerts</h4><p>Automatic notification to parent the moment an absence is marked — no calls needed.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Monthly Analytics</h4><p>Attendance trends, defaulter lists, class-level stats — exportable as PDF or XLSX.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV1">
+        <div class="db-chip" style="background:var(--p700);color:#fff">
+          <div class="db-chip-ico" style="background:rgba(255,255,255,.2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div><strong style="color:#fff">95%</strong><span style="color:rgba(255,255,255,.8)">Avg. Attendance</span></div>
+        </div>
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><div class="db-bar-title">Class 10-A Attendance</div><div class="db-bar-sub">Today, 8:30 AM</div></div></div>
+            <div class="db-live">Live</div>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">42</div><div class="db-stat-l">Present</div></div>
+            <div class="db-stat"><div class="db-stat-v">3</div><div class="db-stat-l">Late</div></div>
+            <div class="db-stat"><div class="db-stat-v">2</div><div class="db-stat-l">Absent</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">E</div><div class="db-row-txt"><div class="db-row-name">Emma Wilson</div><div class="db-row-sub">Roll 04 · 8:15 AM</div></div><div class="db-status-ico si-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">S</div><div class="db-row-txt"><div class="db-row-name">Sofia Garcia</div><div class="db-row-sub">Roll 11 · 8:35 AM (Late)</div></div><div class="db-status-ico si-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p300);color:var(--p800)">O</div><div class="db-row-txt"><div class="db-row-name">Olivia Brown</div><div class="db-row-sub">Roll 18 · Parent notified</div></div><div class="db-status-ico si-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. FEES PAYMENT -->
+<section class="f-sec bg-wt" id="fS2">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Fees Payment</span></div>
+    <div class="f-grid">
+      <div id="fC2">
+        <div class="f-sec-hd">
+          <h2>Fee Collection, <em>Fully Automated.</em></h2>
+          <p>Students pay online, receipts generate automatically, and admins see real-time collection status — no manual entry, no paper trail, no confusion.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div><h4>Online Payments + Auto Receipts</h4><p>Pay from any device. Receipt generated and sent automatically — zero manual work.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Real-Time Collection Dashboard</h4><p>Total collected, pending amounts, defaulter lists — all live, always accurate.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><h4>Automated Reminders</h4><p>Fee due reminders sent to parents automatically before and after the due date.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV2">
+        <div class="db-chip" style="background:#16a34a;color:#fff">
+          <div class="db-chip-ico" style="background:rgba(255,255,255,.2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><strong style="color:#fff">84%</strong><span style="color:rgba(255,255,255,.8)">Cleared</span></div>
+        </div>
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div><div class="db-bar-title">Finance Overview</div><div class="db-bar-sub">May 2026</div></div></div>
+            <div class="db-live">Live</div>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">₹4.2L</div><div class="db-stat-l">Collected</div></div>
+            <div class="db-stat"><div class="db-stat-v">₹0.8L</div><div class="db-stat-l">Pending</div></div>
+            <div class="db-stat"><div class="db-stat-v">847</div><div class="db-stat-l">Students</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">R</div><div class="db-row-txt"><div class="db-row-name">Rohan Mehta — ₹12,000</div><div class="db-row-sub">Paid · Receipt sent</div></div><span class="db-badge bg-g">Cleared</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p300);color:var(--p800)">P</div><div class="db-row-txt"><div class="db-row-name">Priya Patel — ₹12,000</div><div class="db-row-sub">Reminder sent today</div></div><span class="db-badge bg-y">Pending</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p500)">A</div><div class="db-row-txt"><div class="db-row-name">Aarav Sharma — ₹12,000</div><div class="db-row-sub">Paid · 1 May 2026</div></div><span class="db-badge bg-g">Cleared</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. APTITUDE EXAMS -->
+<section class="f-sec bg-alt" id="fS3">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Aptitude Exams</span></div>
+    <div class="f-grid rev">
+      <div id="fC3">
+        <div class="f-sec-hd">
+          <h2>Secure Online Exams with <em>Anti-Cheat Built In.</em></h2>
+          <p>Create timed MCQ exams where every tab switch and window blur is logged server-side. Auto-submit on timeout. Results available the moment the exam ends.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div><h4>Server-Side Anti-Cheat</h4><p>Tab switches, window blur, and focus loss logged in real time. Admin sees full violation reports.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h4>Auto-Submit on Timer</h4><p>Exam submits automatically when time runs out — no manual intervention needed.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Instant Results & Analytics</h4><p>Class performance, toppers, question-level analysis — all available the moment the exam ends.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV3">
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div><div class="db-bar-title">Maths Unit Test 3</div><div class="db-bar-sub">40 questions · 60 min</div></div></div>
+            <div class="db-live">Live</div>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">38</div><div class="db-stat-l">Submitted</div></div>
+            <div class="db-stat"><div class="db-stat-v">2</div><div class="db-stat-l">Ongoing</div></div>
+            <div class="db-stat"><div class="db-stat-v">87%</div><div class="db-stat-l">Avg Score</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p700)">A</div><div class="db-row-txt"><div class="db-row-name">Aarav Sharma — 92/100</div><div class="db-row-sub">0 violations · 48 min</div></div><span class="db-badge bg-g">A+</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">P</div><div class="db-row-txt"><div class="db-row-name">Priya Patel — 74/100</div><div class="db-row-sub">3 tab violations logged</div></div><span class="db-badge bg-y">Review</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">S</div><div class="db-row-txt"><div class="db-row-name">Sofia Garcia — 88/100</div><div class="db-row-sub">0 violations · 52 min</div></div><span class="db-badge bg-g">A</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. RESULTS & REPORT CARDS -->
+<section class="f-sec bg-wt" id="fS4">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> Results & Report Cards</span></div>
+    <div class="f-grid">
+      <div id="fC4">
+        <div class="f-sec-hd">
+          <h2>One-Click Result Publishing, <em>Instant Report Cards.</em></h2>
+          <p>Enter marks once, publish to the whole class with one click. PDF report cards generate instantly for every student — no formatting, no Excel, no manual work.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg></div><div><h4>Approval Workflow</h4><p>Teacher enters marks, admin reviews, results publish — all tracked, all logged.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>Auto-Generated PDF Report Cards</h4><p>Every student gets a designed PDF with marks, grades, attendance, and remarks — the second results publish.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div><h4>Parents Notified Instantly</h4><p>The moment results go live, every parent gets a notification — no waiting, no calls to the school.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV4">
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg></div><div><div class="db-bar-title">Class X — Mid-Term Results</div><div class="db-bar-sub">Published · 847 report cards</div></div></div>
+            <span class="db-badge bg-g" style="padding:4px 10px">Live</span>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">847</div><div class="db-stat-l">PDFs ready</div></div>
+            <div class="db-stat"><div class="db-stat-v">82%</div><div class="db-stat-l">Class avg</div></div>
+            <div class="db-stat"><div class="db-stat-v">100%</div><div class="db-stat-l">Notified</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p700)">A</div><div class="db-row-txt"><div class="db-row-name">Aarav Sharma — 92%</div><div class="db-row-sub">Report card downloaded</div></div><span class="db-badge bg-g">A+</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p500)">S</div><div class="db-row-txt"><div class="db-row-name">Sofia Garcia — 88%</div><div class="db-row-sub">Parent viewed today</div></div><span class="db-badge bg-g">A</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">P</div><div class="db-row-txt"><div class="db-row-name">Priya Patel — 74%</div><div class="db-row-sub">PDF sent to parent</div></div><span class="db-badge bg-p">B+</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. COMMUNICATION, NOTIFICATIONS & CHAT -->
+<section class="f-sec bg-alt" id="fS5">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Communication, Notifications & Chat</span></div>
+    <div class="f-grid rev">
+      <div id="fC5">
+        <div class="f-sec-hd">
+          <h2>Every Notice Delivered. <em>No One Left Out.</em></h2>
+          <p>Broadcasts, real-time push notifications, and private chat between teachers and parents — all in one secure, organized system. WhatsApp groups become obsolete.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><h4>Role-Targeted Broadcasts</h4><p>Send to all, teachers only, parents only, or a specific class — relevance enforced server-side.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div><h4>Real-Time Push Notifications</h4><p>SSE-powered alerts for attendance, results, fees, leaves — every role gets only what matters.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8M8 13h6"/><path d="M21 12c0 4.97-4.03 9-9 9-1.5 0-2.91-.37-4.15-1.02L3 21l1.02-4.85C3.37 14.91 3 13.5 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9z"/></svg></div><div><h4>Private Direct Messaging</h4><p>Teachers message parents directly — private, logged, audit-ready. Conversation history preserved.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV5">
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div class="db-bar-title">Communications Hub</div><div class="db-bar-sub">All roles · Today</div></div></div>
+            <div class="db-live">Live</div>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">12</div><div class="db-stat-l">Sent today</div></div>
+            <div class="db-stat"><div class="db-stat-v">847</div><div class="db-stat-l">Recipients</div></div>
+            <div class="db-stat"><div class="db-stat-v">3</div><div class="db-stat-l">Unread</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">A</div><div class="db-row-txt"><div class="db-row-name">Annual Sports Day — All</div><div class="db-row-sub">847 recipients · Just now</div></div><span class="db-badge bg-g">Sent</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">P</div><div class="db-row-txt"><div class="db-row-name">Parent: Priya's leave</div><div class="db-row-sub">Mrs. Sharma → Mr. Sharma</div></div><span class="db-badge bg-p">New</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p500)">F</div><div class="db-row-txt"><div class="db-row-name">Fee reminder — Class IX</div><div class="db-row-sub">Auto-sent · Due in 3 days</div></div><span class="db-badge bg-y">Sent</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. LIBRARY & DOCUMENT SHARING -->
+<section class="f-sec bg-wt" id="fS6">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Library & Document Sharing</span></div>
+    <div class="f-grid">
+      <div id="fC6">
+        <div class="f-sec-hd">
+          <h2>Books, Circulars, Forms — <em>All Centralised.</em></h2>
+          <p>Digital library catalogue with due-date tracking, plus a single place for every circular, form, and notice — accessible to the right roles instantly.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><div><h4>Digital Library Catalogue</h4><p>Issue and return tracked digitally. Automated due-date reminders sent to students before fines kick in.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>Role-Scoped Document Sharing</h4><p>Upload a circular once. Students see student-relevant ones, teachers see staff ones — no email blasts.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><h4>Version Control</h4><p>Replace a form, the old one's archived. Audit trail of who uploaded what, when, for which role.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV6">
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><div><div class="db-bar-title">Library & Documents</div><div class="db-bar-sub">Live overview</div></div></div>
+            <span class="db-badge bg-p" style="padding:4px 10px">340 books</span>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">28</div><div class="db-stat-l">Issued</div></div>
+            <div class="db-stat"><div class="db-stat-v">3</div><div class="db-stat-l">Overdue</div></div>
+            <div class="db-stat"><div class="db-stat-v">62</div><div class="db-stat-l">Docs</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">W</div><div class="db-row-txt"><div class="db-row-name">Wings of Fire — Aarav</div><div class="db-row-sub">Due: 20 May 2026</div></div><span class="db-badge bg-g">On time</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p700)">E</div><div class="db-row-txt"><div class="db-row-name">Exam Schedule PDF</div><div class="db-row-sub">Uploaded · Students only</div></div><span class="db-badge bg-p">Live</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">P</div><div class="db-row-txt"><div class="db-row-name">Parent Consent Form</div><div class="db-row-sub">Parents · v2 active</div></div><span class="db-badge bg-g">v2</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. HOLIDAYS, LEAVES & SALARY SLIPS -->
+<section class="f-sec bg-alt" id="fS7">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg> HR Operations</span></div>
+    <div class="f-grid rev">
+      <div id="fC7">
+        <div class="f-sec-hd">
+          <h2>Holidays, Leaves & Salary — <em>Completely Paperless.</em></h2>
+          <p>One school-wide holiday calendar synced with attendance, digital leave requests with approval workflows, and auto-generated monthly salary slips. No paper forms, ever.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div><div><h4>Holiday Calendar Sync</h4><p>Holidays visible to all roles, automatically synced with attendance and timetable — no double-marking.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/></svg></div><div><h4>Leave Request Workflow</h4><p>Staff request in the platform, one-click approvals, automatic balance updates — no chasing.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>Auto-Generated Salary Slips</h4><p>Monthly slips for every staff member — private, downloadable, always available in their portal.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV7">
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><div class="db-bar-title">HR & Payroll</div><div class="db-bar-sub">May 2026</div></div></div>
+            <span class="db-badge bg-g" style="padding:4px 10px">Generated</span>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">48</div><div class="db-stat-l">Slips ready</div></div>
+            <div class="db-stat"><div class="db-stat-v">3</div><div class="db-stat-l">Leave pending</div></div>
+            <div class="db-stat"><div class="db-stat-v">5</div><div class="db-stat-l">Holidays</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">R</div><div class="db-row-txt"><div class="db-row-name">Salary — Ravi Kumar</div><div class="db-row-sub">May · ₹42,000 · Downloaded</div></div><span class="db-badge bg-g">Sent</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">M</div><div class="db-row-txt"><div class="db-row-name">Leave — Meera Singh</div><div class="db-row-sub">15–16 May · Sick leave</div></div><span class="db-badge bg-y">Pending</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p700)">H</div><div class="db-row-txt"><div class="db-row-name">Diwali Holiday — 20 Oct</div><div class="db-row-sub">All sections · Synced</div></div><span class="db-badge bg-g">Live</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CODING PLATFORM & VIDEOS -->
+<section class="f-sec bg-wt" id="fS8">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Learning Resources</span></div>
+    <div class="f-grid">
+      <div id="fC8">
+        <div class="f-sec-hd">
+          <h2>Coding & Video Lessons — <em>Built In.</em></h2>
+          <p>An in-browser coding environment for programming classes, and a curated video library for every subject. No third-party signups, no scattered links — all under one roof.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div><h4>In-Browser Coding IDE</h4><p>Students write, run, and submit code without installing anything. Teachers set problems, see solutions, give feedback.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><div><h4>Curated Video Library</h4><p>Teachers upload lessons by class and subject. Students watch on-demand, progress tracked, no platform-hopping.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Watch & Submission Tracking</h4><p>Teachers see who's watched what, who's submitted code, who needs a nudge — all from one dashboard.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV8">
+        <div class="db-chip" style="background:#0d9488;color:#fff">
+          <div class="db-chip-ico" style="background:rgba(255,255,255,.2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div><strong style="color:#fff">42</strong><span style="color:rgba(255,255,255,.8)">Submissions</span></div>
+        </div>
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div><div class="db-bar-title">Coding & Videos</div><div class="db-bar-sub">Class XII · This week</div></div></div>
+            <div class="db-live">Live</div>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">42</div><div class="db-stat-l">Code subs</div></div>
+            <div class="db-stat"><div class="db-stat-v">128</div><div class="db-stat-l">Video views</div></div>
+            <div class="db-stat"><div class="db-stat-v">18</div><div class="db-stat-l">Lessons</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p700)">A</div><div class="db-row-txt"><div class="db-row-name">Binary Search — Aarav</div><div class="db-row-sub">Python · 18 lines · Passed</div></div><span class="db-badge bg-g">Solved</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p500)">V</div><div class="db-row-txt"><div class="db-row-name">Newton's Laws — Lesson 4</div><div class="db-row-sub">38/40 students watched</div></div><span class="db-badge bg-p">95%</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">P</div><div class="db-row-txt"><div class="db-row-name">Sorting Algo — Priya</div><div class="db-row-sub">Python · Awaiting review</div></div><span class="db-badge bg-y">Review</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. TRANSPORT & INVENTORY MANAGEMENT -->
+<section class="f-sec bg-alt" id="fS9">
+  <div class="wrap">
+    <div class="f-sec-label"><span class="f-sec-label-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Operations</span></div>
+    <div class="f-grid rev">
+      <div id="fC9">
+        <div class="f-sec-hd">
+          <h2>Transport & Inventory, <em>Always Accounted For.</em></h2>
+          <p>Live bus tracking with parent notifications for delays, plus a complete inventory system for school supplies and lab equipment — every asset tracked, every route visible.</p>
+        </div>
+        <div class="f-bullets">
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><h4>Live Bus Route Tracking</h4><p>Parents see exactly where the bus is — delays trigger automatic notifications, no panicked calls to the school.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><div><h4>Asset & Stock Inventory</h4><p>Lab equipment, sports gear, library books, supplies — every item tagged, every transfer logged.</p></div></div>
+          <div class="f-bullet"><div class="f-bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div><h4>Low-Stock & Maintenance Alerts</h4><p>Stock running low? Equipment overdue for service? Alerts hit the admin before it becomes a problem.</p></div></div>
+        </div>
+      </div>
+      <div class="f-visual" id="fV9">
+        <div class="f-db">
+          <div class="db-bar" style="background:var(--p50)">
+            <div class="db-bar-left"><div class="db-bar-ico" style="background:var(--p700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><div class="db-bar-title">Operations Overview</div><div class="db-bar-sub">Today · Live</div></div></div>
+            <div class="db-live">Live</div>
+          </div>
+          <div class="db-stats db-stats-3">
+            <div class="db-stat"><div class="db-stat-v">8</div><div class="db-stat-l">Routes</div></div>
+            <div class="db-stat"><div class="db-stat-v">426</div><div class="db-stat-l">Assets</div></div>
+            <div class="db-stat"><div class="db-stat-v">3</div><div class="db-stat-l">Low stock</div></div>
+          </div>
+          <div class="db-rows">
+            <div class="db-row"><div class="db-avatar" style="background:var(--p600)">R</div><div class="db-row-txt"><div class="db-row-name">Route 4 — On schedule</div><div class="db-row-sub">28 students · ETA 7:55 AM</div></div><span class="db-badge bg-g">On time</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p400)">R</div><div class="db-row-txt"><div class="db-row-name">Route 2 — Delayed 8 min</div><div class="db-row-sub">Parents notified · Traffic</div></div><span class="db-badge bg-y">Delayed</span></div>
+            <div class="db-row"><div class="db-avatar" style="background:var(--p500)">L</div><div class="db-row-txt"><div class="db-row-name">Lab — Microscopes (4 left)</div><div class="db-row-sub">Reorder triggered</div></div><span class="db-badge bg-r">Low</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /fFeatures -->
+
+<!-- ══ MANIFESTO — NOW 2-COL WITH IMAGE ══ -->
+<section class="f-mani" id="fMani">
+  <div class="f-mani-g1"></div><div class="f-mani-g2"></div>
+  <div class="wrap">
+    <div class="f-mani-hd" id="fManiHd">
+      <div class="ey ey-dk">What We Stand For</div>
+      <h2>Features built on <em>four non-negotiables.</em></h2>
+      <p>Every feature in School 2.0 is designed against these principles — without exception.</p>
+    </div>
+    <div class="f-mani-body">
+      <div class="f-mani-items">
+        <div class="f-mani-item" id="fm0"><div class="f-mani-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="f-mani-body-txt"><div class="f-mani-tag">Security</div><h3>Secure by architecture, not policy.</h3><p>Role enforcement lives in the API. Data isolated at the database level, validated on every call.</p></div></div>
+        <div class="f-mani-item" id="fm1"><div class="f-mani-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="f-mani-body-txt"><div class="f-mani-tag">Simplicity</div><h3>If a teacher needs a manual, we failed.</h3><p>Attendance in one tap. Results in one click. No training programmes needed.</p></div></div>
+        <div class="f-mani-item" id="fm2"><div class="f-mani-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="f-mani-body-txt"><div class="f-mani-tag">Real-Time</div><h3>Every action reaches the right person instantly.</h3><p>Mark attendance — parent notified. Publish results — students see immediately. No stale data.</p></div></div>
+        <div class="f-mani-item" id="fm3"><div class="f-mani-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div class="f-mani-body-txt"><div class="f-mani-tag">Modularity</div><h3>Enable exactly what you need.</h3><p>Start with attendance and fees. Add exams when ready. Every module independent, every config reversible.</p></div></div>
+      </div>
+      <div class="f-mani-img-col" id="fManiImg">
+        <div class="f-mani-img-bg"></div>
+        <img class="f-mani-img" src="3D_cute_cartoon_girl_pointing_sideways__playful_smile___brown_hair_in_ponytail_-removebg-preview.png" alt="What we stand for"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="f-cta" id="fCta">
+  <div class="f-cta-inner">
+    <div class="ey" style="justify-content:center">Get Started</div>
+    <h2>Ready to modernise<br><em>your school?</em></h2>
+    <p>See all 17 modules working together in a 30-minute personalised walkthrough. No commitment, no sales pressure.</p>
+    <div class="f-cta-btns">
+      <a href="demo.html" class="btn-pri">Book a Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a href="services.html" class="btn-sec">Explore Solutions</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fw">
+    <div class="f-top"><div class="f-brand-name"><span>Aksharum</span></div><div class="f-tagline">The modern operating system for educational institutions — built for schools of every size.</div></div>
+    <div class="fgrid">
+      <div class="fcol"><h4>Platform</h4><ul><li><a href="features.html">Features</a></li><li><a href="services.html">Services</a></li><li><a href="demo.html">Book a Demo</a></li></ul></div>
+      <div class="fcol"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="career.html">Careers</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+      <div class="fcol"><h4>Social Media</h4><ul>
+        <li><a href="mailto:hello@school2.app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@school2.app</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>X (Twitter)</a></li>
+      </ul></div>
+      <div class="fcol"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms&conditions.html">Terms &amp; Conditions</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="fbot">© 2026 Aksharum. Built in India for Modern Education.</div>
+  </div>
+</footer>
+<script src="js/feature.js"></script>
+
+
+</body>
+</html>

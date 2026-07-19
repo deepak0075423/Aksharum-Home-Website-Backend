@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — Aksharum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<link rel="stylesheet" href="css/terms.css">
+<link rel="stylesheet" href="css/liquid-glass.css">
+<script src="js/page-transitions.js" defer></script>
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem("aksharum-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (savedTheme === "dark" || savedTheme === "light") {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+    }
+  })();
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nw">
+    <a href="index.html" class="logo">
+      <div class="lbox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <span class="logo-accent">Aksharum</span>
+    </a>
+
+    <!-- desktop links -->
+    <ul class="nlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <!-- desktop CTA -->
+       <div class="nright">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+    <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="M4.93 4.93l1.41 1.41"></path>
+      <path d="M17.66 17.66l1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="M6.34 17.66l-1.41 1.41"></path>
+      <path d="M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+
+    <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+    </svg>
+  </button>
+
+  <a href="demo.html" class="n-demo">Book Demo</a>
+</div>
+
+    <!-- hamburger -->
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+</nav>
+
+  <!-- overlay -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- mobile drawer -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <a href="index.html" class="drawer-logo">
+        <div class="lbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span>Aksharum</span>
+      </a>
+
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="drawer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+       <div class="drawer-bottom">
+  <button class="drawer-theme-toggle" id="drawerThemeToggle" type="button" aria-label="Switch to dark mode">
+    <span class="drawer-theme-icon">
+      <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="M4.93 4.93l1.41 1.41"></path>
+        <path d="M17.66 17.66l1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="M6.34 17.66l-1.41 1.41"></path>
+        <path d="M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+
+      <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+      </svg>
+    </span>
+
+    <span class="drawer-theme-text">Dark Mode</span>
+  </button>
+
+  <a href="demo.html" class="drawer-demo">Book Demo</a>
+</div>
+  </aside>
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="crumb">
+    </div>
+    <h1>Terms of Use</h1>
+    <p>By accessing or using Aksharum, you agree to comply with these Terms of Use. Please read them carefully before proceeding.</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="pp-wrap">
+
+  <!-- TOC -->
+  <aside class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ul class="toc-list" id="toc">
+      <li><a href="#intro" class="active">Introduction</a></li>
+      <li><a href="#service-offered">Service Offered</a></li>
+      <li><a href="#user-obligations">User Obligations</a></li>
+      <li><a href="#license">License & Access</a></li>
+      <li><a href="#prohibited">Prohibited Conduct</a></li>
+      <li><a href="#content">Content & Uploads</a></li>
+      <li><a href="#platform-modules">Platform Modules</a></li>
+      <li><a href="#account-security">Account Security</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#agreement">Legal Agreement</a></li>
+      <li><a href="#contact-tou">Contact Us</a></li>
+    </ul>
+  </aside>
+
+  <!-- CONTENT -->
+  <main>
+
+    <!-- INTRO -->
+    <div class="intro-box sr" id="intro">
+      <h2>Aksharum — Terms of Use</h2>
+      <p>The services offered by Aksharum are available only to registered users on a single-user basis, for a defined period, upon making the required payment and abiding by these Terms of Use.</p>
+      <p>By registering as a user and accessing the Aksharum platform, it will be deemed that you have read, understood, and agreed to fully abide by all the terms and conditions contained herein.</p>
+      <p>These Terms of Use apply to all users of the Aksharum platform — Super Admins, School Admins, Teachers, Students, and Parents — across all modules including Attendance, Results, Aptitude Exams, Fees, Salary Slips, Document Sharing, Timetable, Leaves, Holidays, Library, Notifications, and Communication.</p>
+    </div>
+
+    <!-- 1. SERVICE OFFERED -->
+    <section class="pp-section sr" id="service-offered">
+      <h2>1. Service Offered</h2>
+      <p>Aksharum is a multi-tenant, cloud-based School ERP platform that provides educational institutions with tools to manage academics, administration, finance, communication, and reporting through a single integrated system.</p>
+      <ul>
+        <li>Services are personal in nature and available only to registered, authorised users within a school tenant. They cannot be assigned, transferred, or shared with any person outside the registered school account.</li>
+        <li>Aksharum currently provides users with access to a comprehensive collection of school management modules, academic records, reports, real-time notifications, and document management resources.</li>
+        <li>All services are provided on an "as-is" basis. Aksharum assumes no liability for the accuracy, completeness, or ongoing availability of information processed through the platform.</li>
+        <li>To use the platform, you must have a stable internet connection and a compatible device (computer, tablet, or smartphone with a modern web browser).</li>
+        <li>Access to specific modules depends on which features your School Admin has enabled for your institution via the module gating configuration.</li>
+      </ul>
+      <div class="note"><strong>Multi-tenant architecture:</strong> Each school on Aksharum operates as a completely isolated tenant. Your school's data — students, results, fees, documents, and communications — is never accessible to any other school on the platform.</div>
+    </section>
+
+    <!-- 2. USER OBLIGATIONS -->
+    <section class="pp-section sr" id="user-obligations">
+      <h2>2. User Obligations</h2>
+      <p>In consideration of your use of the Aksharum platform, you agree to the following obligations:</p>
+      <ul>
+        <li><strong>Accurate information:</strong> You must provide correct, precise, up-to-date, and complete information about yourself and your institution as required during registration and throughout your use of the platform.</li>
+        <li><strong>Maintain data accuracy:</strong> You must promptly update your registration and profile data to keep it true, accurate, current, and complete at all times.</li>
+        <li><strong>Role-appropriate use:</strong> You must use only the features and data available to your assigned role (Super Admin, School Admin, Teacher, Student, or Parent). Attempting to access features or data outside your role's permissions is a violation of these Terms.</li>
+        <li><strong>No sharing of credentials:</strong> You must not share your login credentials with any other person. Each user must have their own account. Bulk sharing of a single login is strictly prohibited.</li>
+        <li><strong>Lawful use only:</strong> You must use the platform only for lawful purposes directly related to managing or participating in your educational institution.</li>
+      </ul>
+      <div class="note-warn"><strong>Account suspension:</strong> If you provide information that is untrue, inaccurate, not up to date, or incomplete — or if Aksharum has reasonable grounds to suspect such inaccuracies — Aksharum reserves the right to suspend or terminate your account and refuse all current or future use of the service.</div>
+    </section>
+
+    <!-- 3. LICENSE & ACCESS -->
+    <section class="pp-section sr" id="license">
+      <h2>3. License &amp; Access</h2>
+      <p>Your right to use Aksharum is granted on a revocable, non-exclusive, non-transferable license basis as per these Terms of Use.</p>
+      <ul>
+        <li><strong>Revocable license:</strong> Aksharum grants you a limited license to access and use the platform solely for the purposes described in these Terms. This license may be revoked at any time for violations.</li>
+        <li><strong>No ownership rights:</strong> Except for the right to use the services during the active subscription period, registered users shall have no right, title, or ownership over the Aksharum platform or any of its content, software, or design elements.</li>
+        <li><strong>Subscription-based access:</strong> Access is tied to an active, paid subscription (or a valid trial period). Upon cancellation or non-payment, access to the platform and its modules will be suspended.</li>
+        <li><strong>Role-based permissions:</strong> Access levels are defined by your assigned role. Each role — Super Admin, School Admin, Teacher, Student, Parent — has specific permissions enforced server-side via middleware. These cannot be overridden by users.</li>
+        <li><strong>Module gating:</strong> Your school's Super Admin or School Admin determines which of the 13 available modules are active for your institution. You may only access enabled modules.</li>
+      </ul>
+    </section>
+
+    <!-- 4. PROHIBITED CONDUCT -->
+    <section class="pp-section sr" id="prohibited">
+      <h2>4. Prohibited Conduct</h2>
+      <p>You are strictly prohibited from engaging in any of the following activities while using Aksharum:</p>
+      <ul>
+        <li>Posting or transmitting any content that is unlawful, threatening, abusive, defamatory, pornographic, or that violates any intellectual property rights, privacy rights, or applicable law.</li>
+        <li>Uploading or transmitting viruses, worms, malware, ransomware, or any code of a destructive, disruptive, or harmful nature.</li>
+        <li>Attempting to gain unauthorised access to any school tenant, user account, database record, or system component of the platform.</li>
+        <li>Reverse engineering, decompiling, disassembling, or attempting to extract source code from any part of the Aksharum software.</li>
+        <li>Modifying, adapting, or creating derivative works based on the Aksharum platform without express written permission.</li>
+        <li>Attempting to circumvent the Aptitude Exam anti-cheat system, manipulate violation logs, or interfere with timed exam sessions.</li>
+        <li>Using the Communication or Notification modules to send unsolicited bulk messages, spam, or marketing content to any user.</li>
+        <li>Impersonating any user, role, school, or institution on the platform.</li>
+        <li>Using automated scripts, bots, or crawlers to extract data, bypass rate limiting, or overload the platform's servers.</li>
+      </ul>
+      <div class="note-warn"><strong>Consequences:</strong> Violation of any of these prohibited conduct provisions will result in immediate termination of your account, suspension of your school's access to the platform, and may result in legal action. Aksharum reserves the right to refuse service to any user at its sole discretion.</div>
+    </section>
+
+    <!-- 5. CONTENT & UPLOADS -->
+    <section class="pp-section sr" id="content">
+      <h2>5. Content &amp; Uploads</h2>
+      <p>Aksharum's Document Sharing module allows authorised users to upload, share, and manage files including notes, assignments, circulars, salary slips, and exam content. The following terms apply to all uploaded content:</p>
+      <ul>
+        <li><strong>Your content is yours:</strong> Aksharum does not claim intellectual property rights over content you upload — documents, assignments, salary files, and exam papers remain the property of the uploading institution or individual.</li>
+        <li><strong>Content responsibility:</strong> You are solely responsible for the legality, accuracy, and appropriateness of all content you upload or share through the platform.</li>
+        <li><strong>Version control:</strong> The Document Sharing module supports version history. Previous versions of uploaded documents are retained and accessible to authorised users within your school tenant.</li>
+        <li><strong>Targeted sharing:</strong> Documents can be shared at the school level, class level, or section level. You are responsible for ensuring content is shared only with appropriate audiences.</li>
+        <li><strong>Right to remove:</strong> Aksharum reserves the right to remove any content that violates these Terms, is found to be unlawful, or is flagged by a School Admin.</li>
+        <li><strong>Assignment submissions:</strong> Student assignment submissions are stored securely and accessible only to the submitting student and the teacher/admin within the school tenant.</li>
+      </ul>
+    </section>
+
+    <!-- 6. PLATFORM MODULES -->
+    <section class="pp-section sr" id="platform-modules">
+      <h2>6. Platform Modules &amp; Use</h2>
+      <p>Aksharum provides 13 modules that can be individually enabled or disabled per school. Use of each module is subject to the following terms:</p>
+      <ul>
+        <li><strong>Attendance:</strong> Daily attendance marking and correction requests must be submitted and approved through the proper workflow. Falsification of attendance records is a violation of these Terms.</li>
+        <li><strong>Results:</strong> Result entry follows a multi-level approval pipeline (Teacher → Admin → Final). Unauthorised modification of submitted or approved results is prohibited.</li>
+        <li><strong>Aptitude Exams:</strong> Timed MCQ exams are monitored for anti-cheat violations. Violation events (tab switches, focus loss) are logged server-side. Attempting to manipulate exam sessions or scores is strictly prohibited.</li>
+        <li><strong>Fees &amp; Salary Slips:</strong> Financial data entered through these modules is confidential and accessible only to authorised roles. Misuse of financial records is a serious violation.</li>
+        <li><strong>Leave Management:</strong> Leave applications must be submitted and approved through the designated workflow. Fraudulent leave requests are grounds for account action.</li>
+        <li><strong>Notifications &amp; Communication:</strong> These modules may only be used for legitimate school-related communications. Mass unsolicited messaging is prohibited.</li>
+        <li><strong>Reports (PDF/XLSX):</strong> Reports generated through the platform are for internal school use. Redistribution or commercial use of exported reports requires written consent from Aksharum.</li>
+      </ul>
+      <div class="note">Module availability depends on your school's active subscription and the modules your School Admin has enabled. Aksharum may add, modify, or discontinue modules at any time with reasonable notice.</div>
+    </section>
+
+    <!-- 7. ACCOUNT SECURITY -->
+    <section class="pp-section sr" id="account-security">
+      <h2>7. Account Security</h2>
+      <p>You are responsible for maintaining the security of your Aksharum account. The following security obligations apply to all users:</p>
+      <ul>
+        <li><strong>Password security:</strong> You must keep your password strictly confidential and not share it with any other person. Passwords are stored encrypted — Aksharum never stores plain-text passwords.</li>
+        <li><strong>Magic login links:</strong> Time-limited JWT magic login links sent to your email for authentication are single-use and expire automatically. Do not forward these links to others.</li>
+        <li><strong>OTP codes:</strong> One-time passwords sent via email for password reset are valid for a limited time. You must not share OTP codes with anyone.</li>
+        <li><strong>Suspicious activity:</strong> If you suspect unauthorised access to your account, you must notify your School Admin and the Aksharum support team immediately.</li>
+        <li><strong>Session management:</strong> Each session is individually authenticated. Logging out of active sessions when using shared or public devices is your responsibility.</li>
+        <li><strong>No liability for user negligence:</strong> Aksharum shall not be liable for any loss or damage arising from your failure to comply with these security obligations.</li>
+      </ul>
+    </section>
+
+    <!-- 8. INTELLECTUAL PROPERTY -->
+    <section class="pp-section sr" id="ip">
+      <h2>8. Intellectual Property</h2>
+      <p>The look, feel, design, codebase, and all software components of the Aksharum platform are the exclusive intellectual property of Aksharum.</p>
+      <ul>
+        <li>You may not duplicate, copy, reuse, or redistribute any portion of the Aksharum HTML, CSS, JavaScript, visual design elements, or user interface without express written permission.</li>
+        <li>Any software made available through the Aksharum platform is the copyrighted work of its respective provider and is governed by the applicable end-user license agreement.</li>
+        <li>You agree not to reproduce, duplicate, copy, sell, resell, or exploit any portion of the service without express written consent from Aksharum.</li>
+        <li>Aksharum trademarks, logos, and brand elements may not be used without prior written authorisation. You may not imply any association, endorsement, or partnership with Aksharum without consent.</li>
+        <li>Academic content created by teachers (exam papers, assignments, notes) and institutional data (results, attendance, financial records) remain the intellectual property of the respective school or individual.</li>
+      </ul>
+    </section>
+
+    <!-- 9. LEGAL AGREEMENT -->
+    <section class="pp-section sr" id="agreement">
+      <h2>9. Legal Agreement &amp; Governing Law</h2>
+      <p>These Terms of Use constitute a legally binding agreement between you and Aksharum. By using the platform, you acknowledge that you have read, understood, and agreed to these terms.</p>
+      <ul>
+        <li><strong>Governing law:</strong> This agreement is governed by the laws of India. Any disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in Mumbai, Maharashtra, India.</li>
+        <li><strong>No agency relationship:</strong> This agreement does not create any joint venture, partnership, employment, or agency relationship between you and Aksharum.</li>
+        <li><strong>Compliance with law:</strong> Performance of this agreement by Aksharum is subject to existing laws and legal processes in India. Nothing in this agreement limits Aksharum's obligation to comply with governmental, court, and law enforcement requirements.</li>
+        <li><strong>Entire agreement:</strong> These Terms of Use, together with the Privacy Policy and Terms & Conditions, constitute the entire agreement between you and Aksharum regarding use of the platform, superseding all prior communications, proposals, or agreements.</li>
+        <li><strong>Severability:</strong> If any provision of these Terms is found to be unenforceable, the remaining provisions remain in full force and effect.</li>
+        <li><strong>Updates:</strong> Aksharum reserves the right to update these Terms of Use at any time. Material changes will be communicated to School Admins via email and in-platform notification at least 14 days before taking effect.</li>
+      </ul>
+      <div class="note"><strong>Continued use:</strong> Continued use of the Aksharum platform after updated Terms are published constitutes your acceptance of the revised Terms of Use.</div>
+    </section>
+
+    <!-- 10. CONTACT -->
+    <section class="pp-section sr" id="contact-tou">
+      <h2>10. Contact Us</h2>
+      <p>Questions about these Terms of Use should be directed to our legal and support team. We aim to respond to all queries within 5 business days.</p>
+      <div class="contact-card">
+        <h3>Aksharum Support Team</h3>
+        <p>Legal &amp; Terms queries: <a href="mailto:legal@school2.app">legal@school2.app</a></p>
+        <p>General enquiries: <a href="mailto:hello@school2.app">hello@school2.app</a></p>
+        <p>Aksharum is committed to transparent, fair, and responsible operation of its platform for educational institutions across India. We welcome feedback and queries regarding our policies and platform use.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fw">
+    <div class="f-top">
+      <div class="f-brand-name"><span>Aksharum</span></div>
+      <div class="f-tagline">The modern operating system for educational institutions — built for schools of every size.</div>
+    </div>
+    <div class="fgrid">
+      <div class="fcol">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="demo.html">Book a Demo</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="career.html">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Social Media</h4>
+        <ul>
+          <li><a href="mailto:hello@school2.app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@school2.app</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>X (Twitter)</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms&conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="terms.html" style="color:rgba(255,255,255,.8);font-weight:600" class="active">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">© 2026 Aksharum. Built in India for Modern Education.</div>
+  </div>
+</footer>
+<script src="js/terms.js"></script>
+
+
+</body>
+</html>

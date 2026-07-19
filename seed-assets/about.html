@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Aksharum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/about.css">
+<link rel="stylesheet" href="css/liquid-glass.css">
+<script src="js/page-transitions.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem("aksharum-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  })();
+</script>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAV — replace your existing <nav id="nav">...</nav> with this entire block
+     ════════════════════════════════════════════ -->
+<nav id="nav" style="background: linear-gradient(
+    180deg, 
+    var(--nav-bg-start) 0%, 
+    var(--nav-bg-middle) 50%, 
+    var(--nav-bg-end) 100%
+  );">
+  <div class="nw">
+    <a href="index.html" class="logo">
+      <div class="lbox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <span class="logo-accent">Aksharum</span>
+    </a>
+
+    <!-- desktop links -->
+    <ul class="nlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <!-- desktop CTA -->
+    <div class="nright">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+    <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="M4.93 4.93l1.41 1.41"></path>
+      <path d="M17.66 17.66l1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="M6.34 17.66l-1.41 1.41"></path>
+      <path d="M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+
+    <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+    </svg>
+  </button>
+
+  <a href="demo.html" class="n-demo">Book Demo</a>
+</div>
+
+
+    <!-- hamburger -->
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+</nav>
+
+  <!-- overlay -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- mobile drawer -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <a href="index.html" class="drawer-logo">
+        <div class="lbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span>Aksharum</span>
+      </a>
+
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="drawer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="services.html">Services</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+       <div class="drawer-bottom">
+  <button class="drawer-theme-toggle" id="drawerThemeToggle" type="button" aria-label="Switch to dark mode">
+    <span class="drawer-theme-icon">
+      <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="M4.93 4.93l1.41 1.41"></path>
+        <path d="M17.66 17.66l1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="M6.34 17.66l-1.41 1.41"></path>
+        <path d="M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+
+      <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+      </svg>
+    </span>
+
+    <span class="drawer-theme-text">Dark Mode</span>
+  </button>
+
+  <a href="demo.html" class="drawer-demo">Book Demo</a>
+</div>
+  </aside>
+
+
+<!-- HERO -->
+<section class="about-hero" id="aboutHero">
+  <img class="hero-kite" id="heroKite" src="kite-removebg-preview.png" alt=""/>
+  <div class="bg-orb bg-orb-left"></div>
+  <div class="bg-orb bg-orb-right"></div>
+  <div class="bg-orb bg-orb-mid"></div>
+  <img class="hero-book" id="heroBook" src="School_Book_Clipart_-_Free_Png__Svg__Vector_Images___Neoclipart-removebg-preview.png" alt=""/>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" id="hey">About Us</div>
+    <h1 id="htitle">
+      <span class="word">Built</span>
+      <span class="word">for</span>
+      <span class="word">how</span>
+      <span class="word accent">schools</span>
+      <span class="word">actually</span>
+      <span class="word">work</span>
+    </h1>
+    <p class="sub" id="hsub">
+      For years, schools have adapted their workflows to fit rigid systems. We built Aksharum to do the opposite.
+    </p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C360,110 720,30 1080,80 C1260,105 1380,75 1440,60 L1440,120 L0,120 Z"/>
+  </svg>
+</section>
+
+<!-- ══ WHO WE ARE ══ -->
+<section class="wwa-sec" id="wwaSec">
+  <div class="wwa-hd" id="wwaHd">
+    <div class="wwa-ey">Who We Are</div>
+    <h2>Building the infrastructure<br><em>schools deserve.</em></h2>
+    <p>
+      We believe technology should quietly remove complexity—not create it.  Every feature in Aksharum exists to eliminate manual work, connect departments, and give schools complete operational clarity.
+    </p>
+  </div>
+  <div class="wwa-body">
+    <div class="wwa-img-col" id="wwaImg">
+      <img class="wwa-img" src="Gemini_Generated_Image_dnoboydnoboydnob-removebg-preview.png" alt="Two team members discussing">
+    </div>
+    <div class="wwa-right" id="wwaRight">
+      <h3>We're not building another school app.<br><em>We're replacing the chaos.</em></h3>
+      <p>Every hour spent on paperwork is an hour taken away from education. Aksharum exists to return that time—by bringing every department, every workflow, and every stakeholder onto one intelligent platform.</p>
+      <div class="wwa-feats">
+        <div class="wwa-feat">
+          <div class="wwa-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div>
+            <h4>Privacy Isn't a Feature</h4>
+            <p>Your school's data stays completely isolated, protected, and accessible only to authorized users—from the first login to the final report.</p>
+          </div>
+        </div>
+        <div class="wwa-feat">
+          <div class="wwa-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+          <div>
+            <h4>Grow Without Rebuilding</h4>
+            <p>Start with what you need today. Expand tomorrow without migrating systems, retraining staff, or disrupting operations.</p>
+          </div>
+        </div>
+        <div class="wwa-feat">
+          <div class="wwa-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div>
+            <h4>Built Around People</h4>
+            <p>Every stakeholder gets a workspace designed around their responsibilities—not a cluttered dashboard filled with features they'll never use.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- ############################################################################################# -->
+
+<!-- ══ MISSION VISION APPROACH ══ -->
+<section class="mva-sec" id="mvaSec">
+  <div class="mva-glow1"></div><div class="mva-glow2"></div>
+  <div class="mva-inner">
+    <div class="mva-hd" id="mvaHd">
+      <div class="mva-ey">What Drives Us</div>
+      <h2>Our mission, vision<br><em>&amp; approach.</em></h2>
+      <p>Three ideas that guide every product decision, every line of code, and every school we onboard.</p>
+    </div>
+    <div class="mva-grid">
+      <div class="mva-card" id="mvaC0">
+        <div class="mva-card-spot"></div>
+        <div class="mva-watermark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="mva-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="mva-tag">Mission</div>
+        <h3>Give schools more time for education.</h3>
+        <p>We exist to remove administrative complexity so educators can focus on teaching, students can focus on learning, and institutions can focus on growth.</p>
+      </div>
+      <div class="mva-card" id="mvaC1">
+        <div class="mva-card-spot"></div>
+        <div class="mva-watermark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div class="mva-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div class="mva-tag">Vision</div>
+        <h3>An ecosystem of schools</h3>
+        <p>We envision a future where every school—regardless of size or location—operates through intelligent, connected technology that improves every educational experience.</p>
+      </div>
+      <div class="mva-card" id="mvaC2">
+        <div class="mva-card-spot"></div>
+        <div class="mva-watermark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="mva-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="mva-tag">Approach</div>
+        <h3>Simplicity over complexity</h3>
+        <p>We build software around people, automate repetitive work, protect every piece of data, and continuously evolve alongside the schools we serve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ########################################################################################################### -->
+
+<!-- ══ HOW WE BUILT IT ══ -->
+<section class="hwb-sec" id="hwbSec">
+  <div class="hwb-inner">
+    <div class="hwb-hd" id="hwbHd">
+      <div class="hwb-ey">OUR DESIGN PHILOSOPHY</div>
+      <h2>Every decision starts<br>with the <em>person using it.</em></h2>
+      <p>Three principles drive every feature, every release, and every line of code at Aksharum.</p>
+    </div>
+
+    <div class="hwb-body">
+      <!-- LEFT — anchor card -->
+      <div class="hwb-left" id="hwbLeft">
+        <div class="hwb-left-card">
+          <div class="hwb-left-ey">The Philosophy</div>
+          <h3>Great software starts<br> with  <em>understanding people.</em></h3>
+          <p>Every workflow inside Aksharum begins with a real challenge faced by administrators, teachers, parents, or students. We don't build features to impress—we build solutions that save time every single day.</p>
+          <div class="hwb-stat-block">
+            <div class="hwb-stat">
+              <div class="hwb-stat-num">15<span style="font-size: xx-large; font-weight: 1000;">+</span></div>
+              <div class="hwb-stat-lbl">Independent modules</div>
+            </div>
+            <div class="hwb-stat-divider"></div>
+            <div class="hwb-stat">
+              <div class="hwb-stat-num">7<span style="font-size: xx-large; font-weight: 1000;">+</span></div>
+              <div class="hwb-stat-lbl">Dedicated User Experiences
+</div>
+            </div>
+          </div>
+          <a href="index.html#featuresSec" class="hwb-link">
+            Explore the platform
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT — timeline (icons centered on the line) -->
+      <div class="hwb-tline" id="hwbTline">
+        <div class="hwb-tline-fill" id="hwbFill"></div>
+
+        <div class="hwb-item" id="hwbi0">
+          <div class="hwb-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="hwb-content">
+            <div class="hwb-label">Principle 01</div>
+            <h4>Design Around People</h4>
+            <p>Every user should see only what's relevant to them. Simplicity isn't about fewer features—it's about removing everything unnecessary.</p>
+          </div>
+        </div>
+
+        <div class="hwb-item" id="hwbi1">
+          <div class="hwb-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <div class="hwb-content">
+            <div class="hwb-label">Principle 02</div>
+            <h4>Grow Without Limits</h4>
+            <p>Every school is different. Start with the modules you need today and expand whenever your institution grows—without replacing your software.</p>
+          </div>
+        </div>
+
+        <div class="hwb-item" id="hwbi2">
+          <div class="hwb-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div class="hwb-content">
+            <div class="hwb-label">Principle 03</div>
+            <h4>Trust Built In</h4>
+            <p>Privacy, security, and reliability aren't add-ons. They're built into every decision we make so your school's data always stays protected.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ########################################################################################### -->
+
+<!-- ══ THINGS WE WON'T COMPROMISE ON ══ -->
+<section class="twco-sec" id="twcoSec">
+  <div class="twco-inner">
+    <div class="twco-hd" id="twcoHd">
+      <div class="twco-ey">Non-Negotiables</div>
+      <h2>Things we will <em>never</em><br>compromise on.</h2>
+      <p>Technology will change. Schools will evolve. Aksharum will grow. These four commitments won't.</p>
+    </div>
+    <div class="twco-grid">
+
+      <div class="twco-card" id="tc0">
+        <div class="twco-card-inner">
+          <div class="twco-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="twco-num">Trust - 01 </div>
+          <h3>Your data is yours. Always.</h3>
+          <p>Your school's information should never become someone else's business. We protect it, isolate it, and give access only to the people your institution authorizes.</p>
+          <div class="twco-tag">Data Sovereignty</div>
+        </div>
+      </div>
+
+      <div class="twco-card" id="tc1">
+        <div class="twco-card-inner">
+          <div class="twco-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div class="twco-num">Simplicity - 02 </div>
+          <h3>Technology should feel invisible.</h3>
+          <p>No complicated manuals. No unnecessary steps. No software that gets in the way. Aksharum should feel natural from the first day—and effortless every day after.</p>
+          <div class="twco-tag">Zero Trust</div>
+        </div>
+      </div>
+
+      <div class="twco-card" id="tc2">
+        <div class="twco-card-inner">
+          <div class="twco-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="twco-num">Time - 03</div>
+          <h3>Give time back to educators</h3>
+          <p>Every workflow we build must reduce work—not create more of it. If technology adds another task, another spreadsheet, or another layer of complexity, it has failed.</p>
+          <div class="twco-tag">Education-First</div>
+        </div>
+      </div>
+
+      <div class="twco-card" id="tc3">
+        <div class="twco-card-inner">
+          <div class="twco-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="twco-num">Access - 04</div>
+          <h3>No school left behind.</h3>
+          <p>Great technology shouldn't belong only to institutions with the biggest budgets. We build for schools of different sizes, locations, and realities—without compromising the quality of the experience.</p>
+          <div class="twco-tag">Universal Access</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ VALUES ══ -->
+<section class="abv-sec" id="abvSec">
+  <div class="abv-inner">
+    <div class="abv-hd" id="abvHd">
+      <div class="abv-ey">Our Values</div>
+      <h2>What we stand for,<br><em>every single day.</em></h2>
+    </div>
+    <div class="abv-grid">
+      <div class="abv-item"><div class="abv-word">Transparency</div><p>Honest pricing, honest limitations, honest conversations. No fine print surprises.</p></div>
+      <div class="abv-item"><div class="abv-word">Reliability</div><p>99% uptime is the floor, not the goal. Schools can't afford downtime — we engineer accordingly.</p></div>
+      <div class="abv-item"><div class="abv-word">Simplicity</div><p>Every screen designed to make sense the first time, without a tutorial or a support call.</p></div>
+      <div class="abv-item"><div class="abv-word">Ownership</div><p>We take full responsibility for what we ship. When something breaks, we fix it. No excuses.</p></div>
+      <div class="abv-item"><div class="abv-word">Inclusivity</div><p>Built for every school, everywhere — not just big-city private schools.</p></div>
+      <div class="abv-item"><div class="abv-word">Accountability</div><p>Clear records, clear actions, clear outcomes — for our users and for ourselves.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="ab-final-cta" id="abFinalCta">
+  <div class="ab-final-inner">
+    <div class="ab-final-left">
+      <div class="ab-final-ey">Ready to see it?</div>
+      <h2>See Aksharum<br><em>in action.</em></h2>
+      <p>A 30-minute personalised walkthrough of the modules that matter for your school. No commitment, no sales pressure — just an honest look at what we're building.</p>
+    </div>
+    <div class="ab-final-right">
+      <a href="demo.html" class="ab-final-btn-pri">
+        Book a Live Demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p class="ab-final-note">We respond within one business day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fw">
+    <div class="f-top"><div class="f-brand-name"><span>Aksharum</span></div><div class="f-tagline">The modern operating system for educational institutions — built for schools of every size.</div></div>
+    <div class="fgrid">
+      <div class="fcol"><h4>Platform</h4><ul><li><a href="features.html">Features</a></li><li><a href="services.html">Services</a></li><li><a href="demo.html">Book a Demo</a></li></ul></div>
+      <div class="fcol"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="career.html">Careers</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+      <div class="fcol"><h4>Social Media</h4><ul>
+        <li><a href="mailto:hello@school2.app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@school2.app</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>X (Twitter)</a></li>
+      </ul></div>
+      <div class="fcol"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms&conditions.html">Terms &amp; Conditions</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="fbot">© 2026 Aksharum. Built in India for Modern Education.</div>
+  </div>
+</footer>
+
+<script src="js/about.js"></script>
+
+</body>
+</html>

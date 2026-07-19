@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# environment — commit .env.example only, never real credentials
+.env
+.env.*
+!.env.example
+
+# user uploads (resumes, logo, favicon) — backed up separately, never committed
+uploads/
+
+# logs
+logs/
+*.log
+npm-debug.log*
+
+# test coverage
+coverage/
+.nyc_output/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp

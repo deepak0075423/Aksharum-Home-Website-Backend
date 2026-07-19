@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Services — Aksharum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="css/services.css">
+<link rel="stylesheet" href="css/liquid-glass.css">
+<script src="js/page-transitions.js" defer></script>
+
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem("aksharum-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (savedTheme === "dark" || savedTheme === "light") {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+    }
+  })();
+</script>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAV — replace your existing <nav id="nav">...</nav> with this entire block
+     ════════════════════════════════════════════ -->
+<nav id="nav" style="background: linear-gradient(
+    180deg, 
+    var(--nav-bg-start) 0%, 
+    var(--nav-bg-middle) 50%, 
+    var(--nav-bg-end) 100%
+  );">
+  <div class="nw">
+    <a href="index.html" class="logo">
+      <div class="lbox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <span class="logo-accent">Aksharum</span>
+    </a>
+
+    <ul class="nlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+       <div class="nright">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+    <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="M4.93 4.93l1.41 1.41"></path>
+      <path d="M17.66 17.66l1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="M6.34 17.66l-1.41 1.41"></path>
+      <path d="M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+
+    <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+    </svg>
+  </button>
+
+  <a href="demo.html" class="n-demo">Book Demo</a>
+</div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+</nav>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <a href="index.html" class="drawer-logo">
+        <div class="lbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span>Aksharum</span>
+      </a>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+        <span></span><span></span>
+      </button>
+    </div>
+
+    <div class="drawer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+       <div class="drawer-bottom">
+  <button class="drawer-theme-toggle" id="drawerThemeToggle" type="button" aria-label="Switch to dark mode">
+    <span class="drawer-theme-icon">
+      <svg class="theme-icon theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="M4.93 4.93l1.41 1.41"></path>
+        <path d="M17.66 17.66l1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="M6.34 17.66l-1.41 1.41"></path>
+        <path d="M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+
+      <svg class="theme-icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6.5 6.5 0 0 0 8.8 8.8A9 9 0 1 1 12 3Z"></path>
+      </svg>
+    </span>
+
+    <span class="drawer-theme-text">Dark Mode</span>
+  </button>
+
+  <a href="demo.html" class="drawer-demo">Book Demo</a>
+</div>
+  </aside>
+
+
+<!-- HERO -->
+<section class="about-hero" id="aboutHero">
+  <img class="hero-kite" id="heroKite" src="kite-removebg-preview.png" alt=""/>
+  <div class="bg-orb bg-orb-left"></div>
+  <div class="bg-orb bg-orb-right"></div>
+  <div class="bg-orb bg-orb-mid"></div>
+  <img class="hero-book" id="heroBook" src="School_Book_Clipart_-_Free_Png__Svg__Vector_Images___Neoclipart-removebg-preview.png" alt=""/>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" id="hey">Our Services</div>
+    <h1 id="htitle">
+      <span class="word">Everything</span>
+      <span class="word">schools</span>
+      <span class="word">needs</span>
+      <span class="word accent">connected</span>
+    </h1>
+    <p class="sub" id="hsub">Aksharum brings academics, administration, finance, communication, and analytics into one seamless platform — so every role gets exactly what they need, and nothing they don't.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C360,110 720,30 1080,80 C1260,105 1380,75 1440,60 L1440,120 L0,120 Z"/>
+  </svg>
+</section>
+
+<!-- ══ 2. THREE PILLARS ══ -->
+<section class="sv-modules" id="svModules">
+  <div class="sv-mod-inner">
+    <div class="sv-sec-hd" id="svModHd">
+      <div class="sv-ey">The Aksharum Difference</div>
+      <h2>One platform. Every workflow. <em>Zero compromise.</em></h2>
+      <p>We didn't build another school tool. We built the missing infrastructure that connects every role, every module, and every data point under one roof.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+
+      <div class="sv-pillar-card">
+        <div class="sv-pillar-num">01</div>
+        <div class="sv-pillar-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Isolated by architecture</h3>
+        <p>Every school lives in its own private tenant. Your data never touches another institution's — enforced server-side at every API call, not just at the access layer.</p>
+        <div class="sv-pillar-tag">Multi-Tenant</div>
+      </div>
+
+      <div class="sv-pillar-card">
+        <div class="sv-pillar-num">02</div>
+        <div class="sv-pillar-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3>Modular by design</h3>
+        <p>Enable exactly the modules your school needs. Skip the rest. Change your mind anytime, with zero downtime, and pay only for what you actually use.</p>
+        <div class="sv-pillar-tag">13 Modules</div>
+      </div>
+
+      <div class="sv-pillar-card">
+        <div class="sv-pillar-num">03</div>
+        <div class="sv-pillar-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Role-first, always</h3>
+        <p>Every person — admin, teacher, student, parent — sees exactly their world. Nothing more, nothing less. Enforced in the API, not just the interface.</p>
+        <div class="sv-pillar-tag">5 Roles</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 4. ROLE EXPERIENCE ══ -->
+<section class="sv-roles" id="svRoles">
+  <div class="sv-role-hd" id="svRoleHd">
+    <div class="sv-ey">User Experience</div>
+    <h2>Designed for <em>every role</em> in your school.</h2>
+    <p>Every person sees exactly their world — built around their workflow, not a generic interface trying to serve everyone the same way.</p>
+  </div>
+
+  <!-- School Admin -->
+  <div class="sv-role-block">
+    <div class="sv-role-inner">
+      <div class="sv-role-visual" id="svRV0">
+        <div class="sv-db">
+          <div class="sv-db-hd">
+            <div class="sv-db-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+            <div><div class="sv-db-title">Admin Dashboard</div><div class="sv-db-sub">Welcome back</div></div>
+            <div class="sv-db-dots"><div class="svdd svdd-r"></div><div class="svdd svdd-y"></div><div class="svdd svdd-g"></div></div>
+          </div>
+          <div class="sv-db-stat-row">
+            <div class="sv-db-stat"><div class="sv-db-stat-val">850</div><div class="sv-db-stat-lbl">Students</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">45</div><div class="sv-db-stat-lbl">Teachers</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">32</div><div class="sv-db-stat-lbl">Classes</div></div>
+          </div>
+          <div class="sv-db-quick">
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Manage Staff</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Academic Calendar</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Automated Reports</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Announcements</div>
+          </div>
+        </div>
+      </div>
+      <div class="sv-role-content" id="svRC0">
+        <div class="sv-role-badge badge-admin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg> School Admin</div>
+        <h2>Complete School <em>Operations Control</em></h2>
+        <p>The admin dashboard gives principals and administrators a bird's-eye view of everything — live student counts, fee collection status, attendance rates, staff management, and communication — all from one screen.</p>
+        <div class="sv-cs">
+          <div class="sv-cs-col challenges">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Challenges</h4>
+            <div class="sv-cs-item">Data scattered across registers and spreadsheets</div>
+            <div class="sv-cs-item">Time lost on manual approval workflows</div>
+            <div class="sv-cs-item">Difficult to track school-wide performance</div>
+            <div class="sv-cs-item">Parent communication through phone calls</div>
+          </div>
+          <div class="sv-cs-col solutions">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Solutions</h4>
+            <div class="sv-cs-item">All-in-one school management dashboard</div>
+            <div class="sv-cs-item">Automated workflows and instant approvals</div>
+            <div class="sv-cs-item">Real-time performance analytics</div>
+            <div class="sv-cs-item">Integrated announcement and messaging system</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teacher -->
+  <div class="sv-role-block">
+    <div class="sv-role-inner">
+      <div class="sv-role-content" id="svRC1">
+        <div class="sv-role-badge badge-teacher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg> Teacher</div>
+        <h2>Classroom Excellence, <em>Paperwork Eliminated</em></h2>
+        <p>Teachers spend their time teaching — not filling registers. Attendance is marked in seconds, grades submitted with a tap, and parents kept informed automatically without a single phone call.</p>
+        <div class="sv-cs">
+          <div class="sv-cs-col challenges">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Challenges</h4>
+            <div class="sv-cs-item">Hours lost on attendance registers</div>
+            <div class="sv-cs-item">Manual grade entry across separate sheets</div>
+            <div class="sv-cs-item">No easy way to communicate with parents</div>
+            <div class="sv-cs-item">Salary slips and leaves managed offline</div>
+          </div>
+          <div class="sv-cs-col solutions">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Solutions</h4>
+            <div class="sv-cs-item">One-tap digital attendance for all students</div>
+            <div class="sv-cs-item">Streamlined grade entry with auto-report cards</div>
+            <div class="sv-cs-item">In-platform parent messaging and updates</div>
+            <div class="sv-cs-item">Digital salary slips and leave request system</div>
+          </div>
+        </div>
+      </div>
+      <div class="sv-role-visual" id="svRV1">
+        <div class="sv-db">
+          <div class="sv-db-hd">
+            <div class="sv-db-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+            <div><div class="sv-db-title">Teacher Dashboard</div><div class="sv-db-sub">Welcome back</div></div>
+            <div class="sv-db-dots"><div class="svdd svdd-r"></div><div class="svdd svdd-y"></div><div class="svdd svdd-g"></div></div>
+          </div>
+          <div class="sv-db-stat-row">
+            <div class="sv-db-stat"><div class="sv-db-stat-val">6</div><div class="sv-db-stat-lbl">Classes</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">180</div><div class="sv-db-stat-lbl">Students</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">5hrs</div><div class="sv-db-stat-lbl">Saved/week</div></div>
+          </div>
+          <div class="sv-db-quick">
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Mark Attendance</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>Enter Grades</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Lesson Plan</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Parent Updates</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parent -->
+  <div class="sv-role-block">
+    <div class="sv-role-inner">
+      <div class="sv-role-visual" id="svRV2">
+        <div class="sv-db">
+          <div class="sv-db-hd">
+            <div class="sv-db-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+            <div><div class="sv-db-title">Parent Dashboard</div><div class="sv-db-sub">Welcome back</div></div>
+            <div class="sv-db-dots"><div class="svdd svdd-r"></div><div class="svdd svdd-y"></div><div class="svdd svdd-g"></div></div>
+          </div>
+          <div class="sv-db-stat-row">
+            <div class="sv-db-stat"><div class="sv-db-stat-val">2</div><div class="sv-db-stat-lbl">Children</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">3</div><div class="sv-db-stat-lbl">Alerts</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">1</div><div class="sv-db-stat-lbl">Meeting</div></div>
+          </div>
+          <div class="sv-db-quick">
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Progress View</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Attendance</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>School Updates</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Event Calendar</div>
+          </div>
+        </div>
+      </div>
+      <div class="sv-role-content" id="svRC2">
+        <div class="sv-role-badge badge-parent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Parent</div>
+        <h2>Stay Connected <em>in Real Time</em></h2>
+        <p>Parents are no longer in the dark. Every attendance mark, result publication, fee reminder, and school announcement reaches them instantly — without having to call the school office.</p>
+        <div class="sv-cs">
+          <div class="sv-cs-col challenges">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Challenges</h4>
+            <div class="sv-cs-item">No visibility into child's daily attendance</div>
+            <div class="sv-cs-item">Results only at parent-teacher meetings</div>
+            <div class="sv-cs-item">Fee reminders received late or missed</div>
+            <div class="sv-cs-item">Difficult to reach teachers directly</div>
+          </div>
+          <div class="sv-cs-col solutions">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Solutions</h4>
+            <div class="sv-cs-item">Real-time attendance alerts and progress view</div>
+            <div class="sv-cs-item">Instant result notifications and report cards</div>
+            <div class="sv-cs-item">Automatic fee reminders and online payment</div>
+            <div class="sv-cs-item">Direct in-platform messaging with teachers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student -->
+  <div class="sv-role-block">
+    <div class="sv-role-inner">
+      <div class="sv-role-content" id="svRC3">
+        <div class="sv-role-badge badge-student"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Student</div>
+        <h2>Your Learning <em>Journey, Organised</em></h2>
+        <p>Students get a personal dashboard with their timetable, exam schedule, results, attendance record, and study materials — all in one place, always up to date.</p>
+        <div class="sv-cs">
+          <div class="sv-cs-col challenges">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Challenges</h4>
+            <div class="sv-cs-item">No visibility into own attendance or grades</div>
+            <div class="sv-cs-item">Missing exam schedules and deadlines</div>
+            <div class="sv-cs-item">Study materials scattered across sources</div>
+            <div class="sv-cs-item">Results only known days after publication</div>
+          </div>
+          <div class="sv-cs-col solutions">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Solutions</h4>
+            <div class="sv-cs-item">Personal attendance and performance dashboard</div>
+            <div class="sv-cs-item">Exam timetable with smart reminders</div>
+            <div class="sv-cs-item">Centralized study materials and circulars</div>
+            <div class="sv-cs-item">Instant result notifications when published</div>
+          </div>
+        </div>
+      </div>
+      <div class="sv-role-visual" id="svRV3">
+        <div class="sv-db">
+          <div class="sv-db-hd">
+            <div class="sv-db-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <div><div class="sv-db-title">Student Dashboard</div><div class="sv-db-sub">Welcome back</div></div>
+            <div class="sv-db-dots"><div class="svdd svdd-r"></div><div class="svdd svdd-y"></div><div class="svdd svdd-g"></div></div>
+          </div>
+          <div class="sv-db-stat-row">
+            <div class="sv-db-stat"><div class="sv-db-stat-val">96%</div><div class="sv-db-stat-lbl">Attendance</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">A</div><div class="sv-db-stat-lbl">Grade</div></div>
+            <div class="sv-db-stat"><div class="sv-db-stat-val">#3</div><div class="sv-db-stat-lbl">Rank</div></div>
+          </div>
+          <div class="sv-db-quick">
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>My Performance</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Class Schedule</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>Study Materials</div>
+            <div class="sv-db-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Smart Reminders</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5. SECURITY ══ -->
+<section class="sv-sec-sec" id="svSec">
+  <div class="sv-sec-inner">
+    <div class="sv-sec-hd" id="svSecHd">
+      <div class="sv-ey">Infrastructure</div>
+      <h2>Built on <em>secure modern infrastructure.</em></h2>
+      <p>Every data point in Aksharum is protected by architecture — not just policy. Security is not a feature we added — it's the foundation everything else is built on.</p>
+    </div>
+    <div class="sv-sec-grid">
+      <div class="sv-sec-card"><div class="sv-sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Isolated Tenants</h3><p>Every school runs in its own completely isolated environment. Your data never touches another institution's — by architecture, not just access control.</p></div>
+      <div class="sv-sec-card"><div class="sv-sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h3>Role-Based Access</h3><p>Every API route validates role and school identity server-side before returning data. No front-end tricks, no bypasses.</p></div>
+      <div class="sv-sec-card"><div class="sv-sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>Cloud Infrastructure</h3><p>Hosted on enterprise-grade cloud with automatic failover, load balancing, and 99% uptime SLA.</p></div>
+      <div class="sv-sec-card"><div class="sv-sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></div><h3>Real-Time Sync</h3><p>Data is consistent across all roles and devices in real time. No delays, no stale pages, no manual refreshing.</p></div>
+      <div class="sv-sec-card"><div class="sv-sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg></div><h3>Automatic Backups</h3><p>Daily automated backups with point-in-time recovery. Your school's data is never at risk of loss.</p></div>
+      <div class="sv-sec-card"><div class="sv-sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><h3>Scalable Architecture</h3><p>From 50 students to 50,000 — the same platform, same performance. No plan upgrades for size.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 6. HOW WE HELP ══ -->
+<section class="sv-help" id="svHelp">
+  <div class="sv-help-inner">
+    <div class="sv-help-hd" id="svHelpHd">
+      <div class="sv-ey sv-ey-dark">Institutional Impact</div>
+      <h2>How Aksharum<em>helps institutions grow.</em></h2>
+      <p>The measurable operational improvements schools see after switching to Aksharum</p>
+    </div>
+    <div class="sv-help-grid">
+      <div class="sv-help-card"><div class="sv-help-num">01</div><h3>Eliminate Manual Work</h3><p>Attendance, grading, fee collection, and report card generation — all automated. Schools report saving 50+ hours per month on admin tasks.</p></div>
+      <div class="sv-help-card"><div class="sv-help-num">02</div><h3>Instant Parent Communication</h3><p>Parents receive alerts in real time — attendance, results, fees, events. No more phone chains, WhatsApp groups, or printed circulars.</p></div>
+      <div class="sv-help-card"><div class="sv-help-num">03</div><h3>Centralised Everything</h3><p>One platform for every workflow. No switching between Excel, registers, WhatsApp, and legacy software. Everything in a single, coherent system.</p></div>
+      <div class="sv-help-card"><div class="sv-help-num">04</div><h3>Faster Reporting</h3><p>School performance reports, fee collection summaries, and attendance analytics are generated in seconds — not days. Export to PDF or XLSX anytime.</p></div>
+      <div class="sv-help-card"><div class="sv-help-num">05</div><h3>Smarter Administration</h3><p>Admins spend less time on paperwork and more time on decisions. Role-specific dashboards surface exactly the information each person needs.</p></div>
+      <div class="sv-help-card"><div class="sv-help-num">06</div><h3>Trusted Data Integrity</h3><p>Every action is logged, every role enforced, every school isolated. Admins and staff can trust the data they see — it's always accurate and up to date.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY Aksharum══ -->
+<section class="sv-wcs" id="svWcs">
+  <div class="sv-wcs-inner">
+
+    <!-- top heading -->
+    <div class="sv-sec-hd" id="svWcsHd" style="margin-bottom:64px">
+      <div class="sv-ey">Why Aksharum</div>
+      <h2>Built for schools that want to <em>run better.</em></h2>
+      <p>From a 60-student village school to a 5,000-student campus — one platform, same quality, same respect. No tiers. No compromise.</p>
+    </div>
+
+    <!-- two columns: left problems + right reasons -->
+    <div class="sv-wcs-body">
+
+      <!-- LEFT: problem statement style (Provio reference) -->
+      <div class="sv-wcs-left">
+        <div class="sv-wcs-problem-hd">
+          <h2 class="sv-wcs-bigline">School management<br>is <em>still broken.</em></h2>
+          <p>Three registers. Two Excel files. A teacher writing report cards by hand. That's what we walked into. That's why Aksharum exists.</p>
+        </div>
+        <div class="sv-wcs-problems">
+          <div class="sv-prob-item">
+            <div class="sv-prob-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+            <div><h4>Scattered across tools</h4><p>Excel for attendance, WhatsApp for fees, registers for results — no school should run this way.</p></div>
+          </div>
+          <div class="sv-prob-item">
+            <div class="sv-prob-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+            <div><h4>Parents always in the dark</h4><p>Attendance unknown. Results delayed. Fee reminders missed. Communication happens through phone chains.</p></div>
+          </div>
+          <div class="sv-prob-item">
+            <div class="sv-prob-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+            <div><h4>Teachers drown in paperwork</h4><p>Marking registers, writing reports, tracking attendance manually — time that should go to students.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: solution — what we replace it with -->
+      <div class="sv-wcs-right">
+        <div class="sv-wcs-solution-tag">We replace this with</div>
+        <div class="sv-wcs-reasons">
+          <div class="sv-reason-row">
+            <div class="sv-reason-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="sv-reason-body">
+              <div class="sv-reason-title">One platform for every workflow</div>
+              <p>Attendance, fees, results, exams, communication — all connected, all in one login.</p>
+            </div>
+          </div>
+          <div class="sv-reason-row">
+            <div class="sv-reason-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="sv-reason-body">
+              <div class="sv-reason-title">Parents informed in real time</div>
+              <p>Every attendance mark, result, and fee reminder reaches parents the moment it happens.</p>
+            </div>
+          </div>
+          <div class="sv-reason-row">
+            <div class="sv-reason-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="sv-reason-body">
+              <div class="sv-reason-title">Teachers freed from admin work</div>
+              <p>Attendance in one tap. Grading automated. Reports generated at a click. 50+ hours saved monthly.</p>
+            </div>
+          </div>
+          <div class="sv-reason-row">
+            <div class="sv-reason-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="sv-reason-body">
+              <div class="sv-reason-title">Secure — by architecture, not policy</div>
+              <p>Your school's data lives in complete isolation. Not shared, not visible to others. Ever.</p>
+            </div>
+          </div>
+          <div class="sv-reason-row">
+            <div class="sv-reason-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="sv-reason-body">
+              <div class="sv-reason-title">Live in a single day</div>
+              <p>No IT team. No installation. No training programme. Set up your school and go live in hours.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-sec" id="faqSec">
+  <div class="faq-inner">
+
+    <div class="faq-hd" id="faqHd">
+      <div class="faq-ey">FAQ</div>
+      <h2>Questions? <em>Answered.</em></h2>
+      <p>Everything you need to know before you sign up.</p>
+    </div>
+
+    <div class="faq-list" id="faqList">
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">What exactly is Aksharum and how is it different from other school software?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">Aksharum is a multi-tenant School ERP built for modern Indian schools. Unlike tools that focus on one area, Aksahrum connects attendance, results, exams, fees, communication, documents, and more into a single platform. Every role — admin, teacher, student, parent — sees exactly their world, enforced server-side. No switching between apps, no re-entering data.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">Do I need to use all 13 modules, or can I start with just a few?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">Absolutely not. Aksharum is modular by design — you enable only what you need. Start with Attendance and Results. Add Fees and Exams when you're ready. Every module toggles on or off anytime with zero downtime. You pay only for what you actually use.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">Is my school's data safe? Can other schools on the platform see it?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">Never. Aksharum uses a true multi-tenant architecture — every school runs in its own completely isolated environment. Your data, users, and configurations are private. There is zero possibility of cross-tenant access. Every API route validates the requesting user's school identity server-side before returning anything.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">How do teachers, students, and parents get access to their accounts?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">The School Admin creates accounts for teachers, students, and parents from the dashboard. Each person receives credentials and immediately sees their role-specific view. Teachers see their classes. Students see their own records. Parents see their child's data only. Access is enforced at every level.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">How does the secure online exam system prevent cheating?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">Teachers create timed MCQ exams. When a student starts, every tab switch, window blur, and focus loss is logged server-side in real time. The exam auto-submits when time runs out. Admins view full violation logs per student. Results and analytics are ready the moment the exam ends — no manual grading needed.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">What does pricing look like and is there a free trial?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">Pricing is modular and school-size based — you pay for the modules you enable with no minimum seat count. We offer a free live demo where our team walks through the platform with you. Book from the navigation bar. No credit card required upfront.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">How long does it take to set up and go live?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">Most schools are live within a single day. The School Admin signs up, creates the school structure — classes, sections, subjects — enables modules, and invites staff. No IT team required, no server setup, no installation. Everything runs in the browser.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-text">What support is available after we onboard?</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-ans">We provide dedicated onboarding support and ongoing help via email and in-platform messaging. Our team assists with initial setup, staff training, and technical questions. Most queries are resolved within a few hours. A comprehensive help documentation is also available inside the platform at all times.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fw">
+    <div class="f-top"><div class="f-brand-name"><span>Aksharum</span></div><div class="f-tagline">The modern operating system for educational institutions — built for schools of every size.</div></div>
+    <div class="fgrid">
+      <div class="fcol"><h4>Platform</h4><ul><li><a href="features.html">Features</a></li><li><a href="services.html">Services</a></li><li><a href="demo.html">Book a Demo</a></li></ul></div>
+      <div class="fcol"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="career.html">Careers</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+      <div class="fcol"><h4>Social Media</h4><ul>
+        <li><a href="mailto:hello@school2.app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@school2.app</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>X (Twitter)</a></li>
+      </ul></div>
+      <div class="fcol"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms&conditions.html">Terms &amp; Conditions</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="fbot">© 2026 Aksharum. Built in India for Modern Education.</div>
+  </div>
+</footer>
+
+<script src="js/services.js"></script>
+
+</body>
+</html>
