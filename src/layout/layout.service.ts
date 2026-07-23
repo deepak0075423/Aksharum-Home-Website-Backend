@@ -121,7 +121,13 @@ export class LayoutService {
 
   private logoBoxHtml(b: Branding): string {
     if (!b.logoPath) return DEFAULT_LOGO_BOX;
-    return `<div class="lbox"><img src="${this.logoUrl(b)}" alt="${this.esc(b.siteName)} logo" style="width:22px;height:22px;object-fit:contain"></div>`;
+    // Custom logos skip the small square icon badge (`.lbox` is pinned to
+    // 32-36px across the page stylesheets — fine for the original single
+    // line icon, too cramped for a real logo mark). The nav/drawer bars are
+    // 64-72px tall everywhere, so a 42px-tall image with natural aspect
+    // ratio sits comfortably centered (both `.logo` and `.drawer-logo` are
+    // flex/align-items:center on every page) without needing a container.
+    return `<img src="${this.logoUrl(b)}" alt="${this.esc(b.siteName)} logo" style="height:42px;max-width:170px;width:auto;object-fit:contain;flex-shrink:0">`;
   }
 
   private socialLinksHtml(links: SocialLink[]): string {

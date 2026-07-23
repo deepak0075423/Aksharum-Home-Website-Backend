@@ -39,7 +39,7 @@ function imageUpload(prefix: string) {
       filename: (_req, file, cb) =>
         cb(null, `${prefix}-${Date.now()}${extname(file.originalname).toLowerCase()}`),
     }),
-    limits: { fileSize: 2 * 1024 * 1024 },
+    limits: { fileSize: 5 * 1024 * 1024 },
     fileFilter: (_req, file, cb) => {
       const ok = IMAGE_EXT.includes(extname(file.originalname).toLowerCase());
       cb(
