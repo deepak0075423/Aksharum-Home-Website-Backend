@@ -127,7 +127,7 @@ export class LayoutService {
     // 64-72px tall everywhere, so a 42px-tall image with natural aspect
     // ratio sits comfortably centered (both `.logo` and `.drawer-logo` are
     // flex/align-items:center on every page) without needing a container.
-    return `<img src="${this.logoUrl(b)}" alt="${this.esc(b.siteName)} logo" style="height:42px;max-width:170px;width:auto;object-fit:contain;flex-shrink:0">`;
+    return `<img src="${this.logoUrl(b)}" alt="${this.esc(b.siteName)} logo" style="height:50px;max-width:170px;width:auto;object-fit:contain;flex-shrink:0">`;
   }
 
   private socialLinksHtml(links: SocialLink[]): string {
