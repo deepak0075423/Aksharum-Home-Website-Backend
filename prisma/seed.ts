@@ -25,6 +25,7 @@ import {
   rewriteInternalLinks,
   stripLayoutFromBody,
 } from './layout-extract';
+import { PAGE_SEO } from './page-seo';
 
 const prisma = new PrismaClient();
 const ASSETS = join(__dirname, '..', 'seed-assets');
@@ -102,7 +103,7 @@ async function main() {
       continue;
     }
     const data = parsePage(file);
-    await prisma.page.create({ data: { slug, ...data } });
+    await prisma.page.create({ data: { slug, ...data, ...PAGE_SEO[slug] } });
     console.log(`page "${slug}" seeded from ${file}`);
   }
 

@@ -92,6 +92,22 @@ class SocialLinksDto {
 export class LayoutController {
   constructor(private readonly layout: LayoutService) {}
 
+  // ── Public: site info for SEO structured data (Organization schema) ──
+
+  @Get('site-info')
+  async siteInfo() {
+    const [branding, social] = await Promise.all([
+      this.layout.getBranding(),
+      this.layout.getSocial(),
+    ]);
+    return {
+      siteName: branding.siteName,
+      logoUrl: this.layout.logoUrl(branding),
+      // Only label + url are needed for schema.org sameAs / contactPoint.
+      social: social.map((l) => ({ label: l.label, url: l.url })),
+    };
+  }
+
   // ── Public: logo + favicon files referenced by the rendered site ──
 
   @Get('logo')

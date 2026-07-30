@@ -115,6 +115,13 @@ export class PagesController {
     private readonly layout: LayoutService,
   ) {}
 
+  // Public: indexable page slugs + last-modified, used to build the sitemap.
+  // Declared before the ":slug" route so "public" isn't captured as a slug.
+  @Get('public')
+  listPublic() {
+    return this.pages.listPublic();
+  }
+
   // Public: used by the Next.js frontend to render the site —
   // page content plus the shared header/footer composed for this page
   @Get('public/:slug')

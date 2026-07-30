@@ -16,6 +16,16 @@ export class PagesService {
     });
   }
 
+  // Public: indexable pages for the sitemap. Login and error pages are
+  // excluded — they carry noindex and should never appear in search.
+  listPublic() {
+    return this.prisma.page.findMany({
+      where: { slug: { notIn: ['auth', '404', '403'] } },
+      select: { slug: true, updatedAt: true },
+      orderBy: { slug: 'asc' },
+    });
+  }
+
   async getBySlug(slug: string) {
     const page = await this.prisma.page.findUnique({ where: { slug } });
     if (!page) throw new NotFoundException(`Page "${slug}" not found`);
