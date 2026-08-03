@@ -1,0 +1,60 @@
+name: Deploy backend
+
+# Auto-deploys the NestJS API on every push to main.
+# The runner does not build anything — it SSHes into the production server,
+# pulls the latest code, installs, syncs the Prisma schema, builds, and
+# reloads the `aksharum-backend` PM2 process (zero-downtime).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {} # allows a manual redeploy from the Actions tab
+
+# Never let two deploys run at once; queue them so the newest lands last.
+concurrency:
+  group: deploy-aksharum-backend
+  cancel-in-progress: false
+
+env:
+  # Absolute path to the already-cloned backend repo on the server.
+  # Edit this if your checkout lives elsewhere.
+  DEPLOY_PATH: /home/ec2-user/Aksharum-Home-Website-Backend
+  PM2_APP: aksharum-backend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          envs: DEPLOY_PATH,PM2_APP
+          script_stop: true # abort on the first failing command
+          script: |
+            set -euo pipefail
+            cd "$DEPLOY_PATH"
+
+            echo "==> Pulling latest main"
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "==> Installing dependencies"
+            npm ci
+
+            echo "==> Syncing Prisma client + schema"
+            npx prisma generate
+            # No migrations folder in this repo — schema is applied with db push.
+            # Runs without --accept-data-loss, so a destructive change fails the
+            # deploy instead of dropping data. Remove if you manage the DB by hand.
+            npx prisma db push
+
+            echo "==> Building"
+            npm run build
+
+            echo "==> Reloading PM2 process $PM2_APP"
+            pm2 reload "$PM2_APP" --update-env
+            pm2 save
