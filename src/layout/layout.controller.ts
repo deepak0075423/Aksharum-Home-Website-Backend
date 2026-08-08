@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   NotFoundException,
+  Param,
   Post,
   Put,
   Res,
@@ -106,6 +107,16 @@ export class LayoutController {
       // Only label + url are needed for schema.org sameAs / contactPoint.
       social: social.map((l) => ({ label: l.label, url: l.url })),
     };
+  }
+
+  // ── Public: header/footer for routes that aren't CMS pages ──
+
+  // CMS pages get their shell from /pages/public/:slug. Routes rendered by
+  // React instead (the blog listing and posts) pull the same composed
+  // header/footer from here, so they carry identical branding and nav state.
+  @Get('shell/:route')
+  shell(@Param('route') route: string) {
+    return this.layout.compose({ slug: route, showLayout: true, navStyle: '' });
   }
 
   // ── Public: logo + favicon files referenced by the rendered site ──

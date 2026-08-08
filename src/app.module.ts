@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
 import { JobsModule } from './jobs/jobs.module';
+import { BlogsModule } from './blogs/blogs.module';
 import { ApplicationsModule } from './applications/applications.module';
 import { ContactModule } from './contact/contact.module';
 import { DemoModule } from './demo/demo.module';
@@ -27,6 +28,7 @@ import { StatsModule } from './stats/stats.module';
     LayoutModule,
     PagesModule,
     JobsModule,
+    BlogsModule,
     ApplicationsModule,
     ContactModule,
     DemoModule,

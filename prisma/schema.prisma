@@ -62,6 +62,42 @@ model Job {
   applications JobApplication[]
 }
 
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Blog {
+  id       String     @id @default(cuid())
+  slug     String     @unique // url segment: /blogs/<slug>
+  title    String
+  excerpt  String     @default("") // listing-card summary; also the meta description fallback
+  bodyHtml String     @default("") // rich-text editor output
+  status   BlogStatus @default(DRAFT)
+
+  // Cover image is optional by design — the listing card falls back to a
+  // brand gradient tile so every card keeps the same height.
+  coverPath String @default("") // filename in uploads/, served via /api/blogs/cover/:file
+  coverAlt  String @default("")
+
+  author String   @default("Aksharum")
+  tags   String[]
+
+  // Set the first time the post is published, then left alone so the
+  // public date doesn't jump on every later edit.
+  publishedAt DateTime?
+
+  // Per-post SEO — same shape as Page, so the frontend can reuse its helpers
+  metaDescription String @default("")
+  metaKeywords    String @default("")
+  ogImage         String @default("")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, publishedAt])
+}
+
 enum ApplicationStatus {
   NEW
   REVIEWED
