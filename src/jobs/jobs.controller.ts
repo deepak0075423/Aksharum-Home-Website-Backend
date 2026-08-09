@@ -27,31 +27,32 @@ class CreateJobDto {
   title!: string;
 
   @IsString()
+  @MinLength(1)
   department!: string;
 
   @IsString()
+  @MinLength(1)
   location!: string;
 
-  @IsOptional()
   @IsString()
-  type?: string;
+  @MinLength(1)
+  type!: string;
 
-  @IsOptional()
+  // Required: a role must ship with a description (rich-text HTML).
   @IsString()
-  description?: string;
+  @MinLength(1)
+  description!: string;
 
-  @IsOptional()
+  @IsInt()
+  @Min(1)
+  openings!: number;
+
+  @IsEnum(JobStatus)
+  status!: JobStatus;
+
   @IsInt()
   @Min(0)
-  openings?: number;
-
-  @IsOptional()
-  @IsEnum(JobStatus)
-  status?: JobStatus;
-
-  @IsOptional()
-  @IsInt()
-  sortOrder?: number;
+  sortOrder!: number;
 }
 
 class UpdateJobDto {
@@ -72,8 +73,10 @@ class UpdateJobDto {
   @IsString()
   type?: string;
 
+  // Optional for partial updates (e.g. status-only), but never blank when sent.
   @IsOptional()
   @IsString()
+  @MinLength(1)
   description?: string;
 
   @IsOptional()
