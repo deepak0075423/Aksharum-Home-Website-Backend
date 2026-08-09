@@ -55,6 +55,7 @@ model Job {
   location     String
   type         String           @default("Full-time")
   description  String           @default("")
+  openings     Int              @default(1) // number of vacancies for this role
   status       JobStatus        @default(OPEN)
   sortOrder    Int              @default(0)
   createdAt    DateTime         @default(now())

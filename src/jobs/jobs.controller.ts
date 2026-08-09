@@ -15,6 +15,7 @@ import {
   IsInt,
   IsOptional,
   IsString,
+  Min,
   MinLength,
 } from 'class-validator';
 import { AdminGuard } from '../common/admin.guard';
@@ -38,6 +39,11 @@ class CreateJobDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  openings?: number;
 
   @IsOptional()
   @IsEnum(JobStatus)
@@ -71,6 +77,11 @@ class UpdateJobDto {
   description?: string;
 
   @IsOptional()
+  @IsInt()
+  @Min(0)
+  openings?: number;
+
+  @IsOptional()
   @IsEnum(JobStatus)
   status?: JobStatus;
 
@@ -96,6 +107,7 @@ export class JobsController {
         location: true,
         type: true,
         description: true,
+        openings: true,
         status: true,
       },
     });
