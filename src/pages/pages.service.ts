@@ -16,12 +16,18 @@ export class PagesService {
     });
   }
 
-  // Public: indexable pages for the sitemap. Login and error pages are
-  // excluded — they carry noindex and should never appear in search.
+  // Public: indexable pages for the sitemap and llms.txt. Login and error
+  // pages are excluded — they carry noindex and should never appear in search.
+  // Title and description are included so llms.txt can label each entry.
   listPublic() {
     return this.prisma.page.findMany({
       where: { slug: { notIn: ['auth', '404', '403'] } },
-      select: { slug: true, updatedAt: true },
+      select: {
+        slug: true,
+        title: true,
+        metaDescription: true,
+        updatedAt: true,
+      },
       orderBy: { slug: 'asc' },
     });
   }

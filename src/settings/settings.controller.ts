@@ -71,6 +71,35 @@ class TestMailDto {
   to!: string;
 }
 
+// Each flag is optional so the admin panel can toggle one file without
+// having to send the state of the other two.
+class SeoDto {
+  @IsOptional()
+  @IsBoolean()
+  sitemap?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  robots?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  llms?: boolean;
+}
+
+// Which of the three SEO files the site serves. Stored per environment
+// (local, staging and production each have their own database), so switching
+// them off locally never touches production.
+//
+// Off by default, deliberately: an environment nobody has configured yet — a
+// fresh clone, a new staging box — should not be handing crawlers a sitemap.
+// Production therefore needs these switched on once, from Settings → SEO files.
+const DEFAULT_SEO = {
+  sitemap: false,
+  robots: false,
+  llms: false,
+};
+
 const DEFAULT_SITE = {
   careersOpen: true,
   careersClosedMessage:
@@ -111,12 +140,20 @@ export class SettingsController {
     return site;
   }
 
+  // Public: read by the Next.js sitemap.xml / robots.txt / llms.txt routes
+  // to decide whether to serve each file at all.
+  @Get('seo')
+  async seoFlags() {
+    return this.getSetting('seo', DEFAULT_SEO);
+  }
+
   @Get()
   @UseGuards(AdminGuard)
   async all() {
     return {
       smtp: await this.getSetting('smtp', DEFAULT_SMTP),
       site: await this.getSetting('site', DEFAULT_SITE),
+      seo: await this.getSetting('seo', DEFAULT_SEO),
     };
   }
 
@@ -135,6 +172,14 @@ export class SettingsController {
   async saveSite(@Body() dto: SiteDto) {
     const current = await this.getSetting('site', DEFAULT_SITE);
     await this.upsert('site', { ...current, ...this.defined(dto) });
+    return { ok: true };
+  }
+
+  @Put('seo')
+  @UseGuards(AdminGuard)
+  async saveSeo(@Body() dto: SeoDto) {
+    const current = await this.getSetting('seo', DEFAULT_SEO);
+    await this.upsert('seo', { ...current, ...this.defined(dto) });
     return { ok: true };
   }
 
