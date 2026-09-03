@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Res,
   UploadedFile,
   UseGuards,
@@ -68,6 +69,57 @@ const PUBLIC_FIELDS = {
   publishedAt: true,
   updatedAt: true,
 } satisfies Prisma.BlogSelect;
+
+// Admin table columns. bodyHtml is deliberately absent — a page of posts
+// would otherwise ship every rich-text body; the editor fetches the one
+// post it opens from GET /blogs/:id instead.
+const LIST_FIELDS = {
+  id: true,
+  slug: true,
+  title: true,
+  excerpt: true,
+  status: true,
+  coverPath: true,
+  coverAlt: true,
+  author: true,
+  tags: true,
+  publishedAt: true,
+  createdAt: true,
+  updatedAt: true,
+} satisfies Prisma.BlogSelect;
+
+const MAX_PAGE_SIZE = 60;
+
+/** Page and limit are both 1-based, so junk and non-positive input alike
+    fall back to the default rather than clamping to a nonsense 1. */
+function toInt(value: string | undefined, fallback: number): number {
+  const n = Number.parseInt(value ?? '', 10);
+  return Number.isFinite(n) && n >= 1 ? n : fallback;
+}
+
+function clamp(n: number, min: number, max: number): number {
+  return Math.min(Math.max(n, min), max);
+}
+
+/** "Fees, Admissions" -> ['Fees', 'Admissions'] */
+function splitTags(value: string | undefined): string[] {
+  return (value ?? '')
+    .split(',')
+    .map((t) => t.trim())
+    .filter(Boolean)
+    .slice(0, 12);
+}
+
+/** Tag usage counts, most-used first, ties broken alphabetically. */
+function countTags(rows: { tags: string[] }[]): { tag: string; count: number }[] {
+  const counts = new Map<string, number>();
+  for (const tag of rows.flatMap((r) => r.tags)) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+}
 
 class CreateBlogDto {
   @Matches(/^[a-z0-9][a-z0-9-]*$/, {
@@ -190,9 +242,54 @@ export class BlogsController {
   listPublic() {
     return this.prisma.blog.findMany({
       where: { status: 'PUBLISHED' },
-      orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+      orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }, { id: 'desc' }],
       select: PUBLIC_FIELDS,
     });
+  }
+
+  // One page of published posts, filtered by tag and free text. The listing
+  // page reads this instead of `public` so the payload stays flat as the
+  // archive grows; `public` still returns everything for the sitemap.
+  @Get('public/list')
+  async listPublicPage(
+    @Query('page') pageParam?: string,
+    @Query('limit') limitParam?: string,
+    @Query('tags') tagsParam?: string,
+    @Query('q') q?: string,
+  ) {
+    const limit = clamp(toInt(limitParam, 12), 1, MAX_PAGE_SIZE);
+    const tags = splitTags(tagsParam);
+    const search = (q ?? '').trim();
+
+    const where: Prisma.BlogWhereInput = {
+      status: 'PUBLISHED',
+      // Any of the picked tags — narrowing to posts carrying all of them
+      // empties the grid as soon as a second tag is ticked.
+      ...(tags.length ? { tags: { hasSome: tags } } : {}),
+      ...(search
+        ? {
+            OR: [
+              { title: { contains: search, mode: 'insensitive' } },
+              { excerpt: { contains: search, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
+    };
+
+    const total = await this.prisma.blog.count({ where });
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+    // Clamped, so ?page=99 lands on the last page rather than an empty grid.
+    const page = clamp(toInt(pageParam, 1), 1, totalPages);
+
+    const items = await this.prisma.blog.findMany({
+      where,
+      orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }, { id: 'desc' }],
+      skip: (page - 1) * limit,
+      take: limit,
+      select: PUBLIC_FIELDS,
+    });
+
+    return { items, total, page, limit, totalPages };
   }
 
   // Every tag in use, so the listing page can render its filter row.
@@ -202,13 +299,7 @@ export class BlogsController {
       where: { status: 'PUBLISHED' },
       select: { tags: true },
     });
-    const counts = new Map<string, number>();
-    for (const tag of rows.flatMap((r) => r.tags)) {
-      counts.set(tag, (counts.get(tag) ?? 0) + 1);
-    }
-    return [...counts.entries()]
-      .map(([tag, count]) => ({ tag, count }))
-      .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+    return countTags(rows);
   }
 
   @Get('public/:slug')
@@ -233,7 +324,7 @@ export class BlogsController {
         slug: { not: slug },
         ...(blog.tags.length ? { tags: { hasSome: blog.tags } } : {}),
       },
-      orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+      orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }, { id: 'desc' }],
       take: 3,
       select: PUBLIC_FIELDS,
     });
@@ -252,12 +343,68 @@ export class BlogsController {
 
   // ── Admin ──
 
+  // One page of the admin table. Drafts included, bodyHtml excluded.
   @Get('all')
   @UseGuards(AdminGuard)
-  listAll() {
-    return this.prisma.blog.findMany({
-      orderBy: [{ createdAt: 'desc' }],
+  async listAll(
+    @Query('page') pageParam?: string,
+    @Query('limit') limitParam?: string,
+    @Query('q') q?: string,
+    @Query('status') statusParam?: string,
+  ) {
+    const limit = clamp(toInt(limitParam, 10), 1, MAX_PAGE_SIZE);
+    const search = (q ?? '').trim();
+    const status =
+      statusParam === 'DRAFT' || statusParam === 'PUBLISHED'
+        ? (statusParam as BlogStatus)
+        : undefined;
+
+    const where: Prisma.BlogWhereInput = {
+      ...(status ? { status } : {}),
+      ...(search
+        ? {
+            OR: [
+              { title: { contains: search, mode: 'insensitive' } },
+              { slug: { contains: search, mode: 'insensitive' } },
+              { author: { contains: search, mode: 'insensitive' } },
+              { tags: { has: search } },
+            ],
+          }
+        : {}),
+    };
+
+    const total = await this.prisma.blog.count({ where });
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+    const page = clamp(toInt(pageParam, 1), 1, totalPages);
+
+    const items = await this.prisma.blog.findMany({
+      where,
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+      skip: (page - 1) * limit,
+      take: limit,
+      select: LIST_FIELDS,
     });
+
+    return { items, total, page, limit, totalPages };
+  }
+
+  // Tag catalogue for the editor's tag picker — drafts included, so a tag
+  // coined on an unpublished post is still suggested on the next one.
+  @Get('tags')
+  @UseGuards(AdminGuard)
+  async allTags() {
+    const rows = await this.prisma.blog.findMany({ select: { tags: true } });
+    return countTags(rows);
+  }
+
+  // The editor loads the post it is about to open — this is the only place
+  // bodyHtml crosses the wire, keeping the table's payload small.
+  @Get(':id')
+  @UseGuards(AdminGuard)
+  async getOne(@Param('id') id: string) {
+    const blog = await this.prisma.blog.findUnique({ where: { id } });
+    if (!blog) throw new NotFoundException('Post not found');
+    return blog;
   }
 
   @Post('cover')
