@@ -110,6 +110,24 @@ function splitTags(value: string | undefined): string[] {
     .slice(0, 12);
 }
 
+/**
+ * Commas separate tags, so "Fees, Admissions" is two tags and never one.
+ * The editor's picker already splits them; doing it here as well means no
+ * client can write a comma into a stored tag. Also trims, drops blanks and
+ * de-duplicates case-insensitively.
+ */
+function normaliseTags(tags: string[] | undefined): string[] | undefined {
+  if (!tags) return undefined;
+  const out: string[] = [];
+  for (const part of tags.flatMap((t) => t.split(','))) {
+    const tag = part.trim();
+    if (tag && !out.some((t) => t.toLowerCase() === tag.toLowerCase())) {
+      out.push(tag);
+    }
+  }
+  return out.slice(0, 12);
+}
+
 /** Tag usage counts, most-used first, ties broken alphabetically. */
 function countTags(rows: { tags: string[] }[]): { tag: string; count: number }[] {
   const counts = new Map<string, number>();
@@ -419,9 +437,11 @@ export class BlogsController {
   @UseGuards(AdminGuard)
   async create(@Body() dto: CreateBlogDto) {
     await this.assertSlugFree(dto.slug);
+    const tags = normaliseTags(dto.tags);
     return this.prisma.blog.create({
       data: {
         ...dto,
+        ...(tags ? { tags } : {}),
         // Publishing straight from the create form still needs a date.
         publishedAt: dto.status === 'PUBLISHED' ? new Date() : null,
       },
@@ -445,9 +465,15 @@ export class BlogsController {
       this.removeFile(blog.coverPath);
     }
 
+    const tags = normaliseTags(dto.tags);
+
     return this.prisma.blog.update({
       where: { id },
-      data: { ...dto, ...(firstPublish ? { publishedAt: firstPublish } : {}) },
+      data: {
+        ...dto,
+        ...(tags ? { tags } : {}),
+        ...(firstPublish ? { publishedAt: firstPublish } : {}),
+      },
     });
   }
 
