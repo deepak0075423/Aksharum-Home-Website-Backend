@@ -16,6 +16,8 @@ import {
   Matches,
 } from 'class-validator';
 import { AdminGuard } from '../common/admin.guard';
+import { replaceRolesGrid, roleRowsHtml } from '../jobs/career-roles';
+import { JobsService } from '../jobs/jobs.service';
 import { LayoutService } from '../layout/layout.service';
 import { PagesService } from './pages.service';
 
@@ -113,6 +115,7 @@ export class PagesController {
   constructor(
     private readonly pages: PagesService,
     private readonly layout: LayoutService,
+    private readonly jobs: JobsService,
   ) {}
 
   // Public: indexable page slugs + last-modified, used to build the sitemap.
@@ -128,7 +131,15 @@ export class PagesController {
   async getPublic(@Param('slug') slug: string) {
     const page = await this.pages.getBySlug(slug);
     const composed = await this.layout.compose(page);
-    return { ...page, ...composed };
+    // The career page's role list is live data: render the current roles
+    // (each linking to its own job page) into the HTML crawlers receive,
+    // instead of the static rows saved with the page. Public render only —
+    // the admin editor reads the stored body through GET /pages/:slug.
+    const bodyHtml =
+      slug === 'career'
+        ? replaceRolesGrid(page.bodyHtml, roleRowsHtml(await this.jobs.listPublic()))
+        : page.bodyHtml;
+    return { ...page, bodyHtml, ...composed };
   }
 
   @Get()

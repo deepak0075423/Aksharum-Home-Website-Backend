@@ -20,6 +20,7 @@ import {
 } from 'class-validator';
 import { AdminGuard } from '../common/admin.guard';
 import { PrismaService } from '../prisma/prisma.service';
+import { JobsService } from './jobs.service';
 
 class CreateJobDto {
   @IsString()
@@ -95,25 +96,16 @@ class UpdateJobDto {
 
 @Controller('jobs')
 export class JobsController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jobs: JobsService,
+  ) {}
 
-  // Public: open + filled roles shown on the career page (closed are hidden)
+  // Public: open + filled roles shown on the career page (closed are hidden).
+  // Each carries `path`, the URL of its own job page.
   @Get()
   listPublic() {
-    return this.prisma.job.findMany({
-      where: { status: { in: ['OPEN', 'FILLED'] } },
-      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
-      select: {
-        id: true,
-        title: true,
-        department: true,
-        location: true,
-        type: true,
-        description: true,
-        openings: true,
-        status: true,
-      },
-    });
+    return this.jobs.listPublic();
   }
 
   @Get('all')
@@ -123,6 +115,15 @@ export class JobsController {
       orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
       include: { _count: { select: { applications: true } } },
     });
+  }
+
+  // Public: one role for its /career/<slug> page (and its JobPosting data).
+  // Declared after 'all' so that path is never captured as an id.
+  @Get(':id')
+  async getPublic(@Param('id') id: string) {
+    const job = await this.jobs.findPublic(id);
+    if (!job) throw new NotFoundException('Job not found');
+    return job;
   }
 
   @Post()
